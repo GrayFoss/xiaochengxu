@@ -1,0 +1,41 @@
+<view class="section">
+<view class='search_main'>
+<image src="./img/search.png" class="search_logo" />
+<input bindinput="bindBlur" placeholder="请输入搜索内容"/>
+</view>
+</view>
+<view class="plate">
+</view>
+  <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
+    <view wx:for="{{type}}"  bindtap="changeUrl" data-url="{{item.url}}"  class="{{item.isChecked?'scroll-view-item_H active_item':'scroll-view-item_H normal'}}">
+      {{item.name}}
+    </view>
+  </scroll-view>
+  <scroll-view scroll-y class="scroll-view_V">
+    <view wx:for="{{productList}}" bindtap="showDetail" data-select="{{item}}" class="scroll-view-item">
+      <image class="product-img" src="http://image.wecareroom.com/upload/product_t/{{item.code}}.png"></image>
+      <view class="product-name">{{item.name}}</view>
+      <view class="product-price">{{item.code}}</view>
+    </view>
+    <view class="loading" wx:if="{{productList.length === 0 && noSearchWord }}">
+      加载中...
+    </view>
+    <view class="loading" hidden="{{noSearchWord}}">
+      暂无查询数据
+    </view>
+  </scroll-view>
+   <view class="wrap" hidden="{{!isDetail}}"></view>
+   <view class="wrap_dialog"  hidden="{{!isDetail}}"> 
+        <view class="detail-header">地板详情
+          <image src="./img/close.png" bindtap="showDetail" ></image>
+        </view> 
+        <view class="detail-content">
+          <image wx:if="{{selectPro.code}}" src="http://image.wecareroom.com/upload/product_t/{{selectPro.code}}.png"></image>
+          <view wx:if="{{selectPro.name}}">名称: {{selectPro.name}}</view>
+          <view wx:if="{{selectPro.code}}">编号: {{selectPro.code}}</view>
+          <view wx:if="{{selectPro.standard}}">规格: {{selectPro.standard}}</view>
+          <view wx:if="{{selectPro.flooring_surface}}">表面工艺: {{selectPro.flooring_surface}}</view>
+          <view wx:if="{{selectPro.color}}">颜色: {{selectPro.color}}</view>
+        </view>
+         <view id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view>
+   </view>  

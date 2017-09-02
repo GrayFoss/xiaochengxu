@@ -1,0 +1,5 @@
+@import "../../../wxParse/wxParse.wxss";
+
+.article_title{
+  text-align: center;
+}

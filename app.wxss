@@ -1,0 +1,3 @@
+ /* .article_details > view:first-of-type{
+  margin-bottom: 200rpx;
+}  */

@@ -1,0 +1,18 @@
+<view class="section">
+  <view class='search_main'>
+    <image src="./img/search.png" class="search_logo" />
+    <input bindinput="bindKeyInput" placeholder="请输入搜索内容"/>
+  </view>
+</view>
+<view class="plate">
+</view>
+<view class="article" wx:for="{{seleArticles}}">
+  <view class="pal_for"></view>
+  <image class="article_img" src="{{item.titleImg}}" data-id="{{item.id}}" bindtap="getoDetails"/>
+  <view class="article_hidden">
+   <text class="article_title" data-id="{{item.id}}" bindtap="getoDetails">{{item.title}}</text>
+  </view>
+  <view>
+   <text class="article_time">{{item.time}}</text>
+  </view>
+</view>

@@ -1,0 +1,43 @@
+{
+  "pages":[
+
+    "pages/articles/articles",
+        "pages/articles/details/details",
+    "pages/shijing/details/details",        
+    "pages/flooring/flooring",            
+    "pages/shijing/shijing",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "selectedColor": "#e32128",
+        "selectedIconPath": "pages/assets/img/zixun_click.png",
+        "iconPath": "pages/assets/img/zixun_notclick.png",
+        "pagePath": "pages/articles/articles",
+        "text": "资讯"
+      },
+      {
+        "selectedColor": "#e32128",
+        "selectedIconPath": "pages/assets/img/product_click.png",
+        "iconPath": "pages/assets/img/product_notclick.png",
+        "pagePath": "pages/flooring/flooring",
+        "text": "产品"
+      },
+     
+      {
+        "selectedColor": "#e32128",
+        "selectedIconPath": "pages/assets/img/shijing_click.png",
+        "iconPath": "pages/assets/img/shijing_notclick.png",                
+        "pagePath": "pages/shijing/shijing",
+        "text": "实景家装"
+      }
+    ]
+  }
+}
