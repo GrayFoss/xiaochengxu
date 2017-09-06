@@ -1,0 +1,28 @@
+.product_list{
+  width: 90%;
+  height: 160rpx;
+  border:1px solid blue;
+  margin: 5%;
+  text-align: left;
+  line-height: 160rpx;
+  vertical-align: middle;
+  position: relative
+}
+
+.slide-image{
+  height: 100%;
+  width:100%;
+}
+
+.product_list image{
+  position: absolute;
+  left: 220rpx;
+  top: 30rpx;
+  width:100rpx;
+  height:100rpx;
+}
+
+.product_list text{
+  position: relative;
+  left: 340rpx;
+}

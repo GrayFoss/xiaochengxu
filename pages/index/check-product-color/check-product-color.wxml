@@ -1,0 +1,57 @@
+<view class="sub_header">
+  <view wx:for="{{header}}" data-hi="{{item}}" bindtap="seleSubmit" class='{{item.seleClass}}'>
+    <text>{{item.name}}</text>
+  </view>
+</view>
+
+ <!- 没有提交实景图 -->
+<!-- <view class='no_data'>
+  <image mode="widthFix" src="./../img/submit_no.png"></image>
+</view>  -->
+
+
+<view class="data_have">
+  <!--已提交  -->
+  <block wx:if="{{seleClass.name == '已提交'}}">
+    <view class="data_list">
+      <view class='data_text pass_no'>
+        <view>
+          <text>天然油棕橡</text>
+        </view>
+        <view>
+          <text>dkasljhdjjaskfhdjs,f</text>
+        </view>
+        <view>
+          <text>2017-8-30</text>
+          <text>审核中</text>
+        </view>
+      </view>
+    </view> 
+  </block>
+
+  <!--审核通过  -->
+  <block wx:if="{{seleClass.name == '审核通过'}}">
+    <view class="data_list pass">
+      <view class='data_text'>
+        <view>
+          <text>天然油棕橡</text>
+        </view>
+        <view>
+          <text>2017-8-30</text>
+        </view>
+        <view class='pass_bottom'>
+          <text>已通过</text>
+          <view>
+            <image src="./../img/dou.png"></image>
+            <text>+30</text>
+          </view>
+        </view>
+      </view>
+    </view> 
+  </block>
+</view>
+
+
+<view class='submit_img' bindtap='gotoColor'>
+  <text>马上提交</text>
+</view>

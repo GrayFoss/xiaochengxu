@@ -14,9 +14,6 @@
   <!--已提交  -->
   <block wx:if="{{seleClass.name == '已提交'}}">
     <view class="data_list">
-      <view class='data_img'>
-        <image src='./../img/1.png'></image>
-      </view>
       <view class='data_text pass_no'>
         <view>
           <text>天然油棕橡</text>
@@ -35,9 +32,6 @@
   <!--审核通过  -->
   <block wx:if="{{seleClass.name == '审核通过'}}">
     <view class="data_list pass">
-      <view class='data_img'>
-        <image src='./../img/1.png'></image>
-      </view>
       <view class='data_text'>
         <view>
           <text>天然油棕橡</text>
@@ -58,13 +52,6 @@
 </view>
 
 
-
-
-
-
-
-
-
-<view class='submit_img'>
+<view class='submit_img' bindtap='gotoProduct'>
   <text>马上提交</text>
 </view>

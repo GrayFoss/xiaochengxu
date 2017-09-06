@@ -1,0 +1,16 @@
+<!--pages/geren/geren.wxml-->
+
+<view class="main">
+  <view class="recharge_header">
+    充值云豆须知
+  </view>
+  <view class="center">1云豆 / 元</view>
+  <view class="weui-form-preview__bd">
+      <view class="weui-form-preview__item" wx:key="{{key}}" wx:for="{{rules}}" >
+          <view class="weui-form-preview__label">-</view>
+          <view class="weui-form-preview__value">{{item}}</view>
+      </view>
+  </view>
+  <button type="primary" bindtap="gotoScene">提交实景图</button>
+  <button type="primary" style="margin-top:5%" bindtap="gotoProduct">提交产品</button>
+</view>

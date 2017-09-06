@@ -4,13 +4,13 @@
   <text class="user_name">{{userInfo.nickName}}</text>
 </view>
 <view class="yundou">
-  <view class="recharge yun">
+  <view class="recharge yun" bindtap='gotoRecharge'>
     <view class='yun_text'>
       <text>充值云豆</text>
     </view>
     <image src='./img/select.png' class='yun_img'></image>
   </view>
-  <view class="earn yun">
+  <view class="earn yun" bindtap='gotoEarn'>
      <view class='yun_text'>
        <text>赚取云豆</text>
        <view class='special'> </view>

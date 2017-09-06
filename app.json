@@ -1,22 +1,23 @@
 {
   "pages":[
-<<<<<<< HEAD
-    "pages/index/submit/submit",
-    "pages/shijing/shijing",
-    "pages/shijing/details/details",
-    "pages/articles/articles",
-    "pages/index/earn/earn",
     "pages/index/index",
-    "pages/articles/details/details",
-    "pages/flooring/flooring"
-=======
+    "pages/index/submitProductColor/submitProductColor",
+    "pages/index/check-product/check-product",
+    "pages/index/check-product-color/check-product-color",
+    "pages/index/earn/earn",
+   
+    "pages/index/check-scene/check-scene",
+
+    "pages/index/protocol/protocol",
+    "pages/index/submitProduct/submitProduct",
+    "pages/index/submitScene/submitScene",
+    "pages/index/recharge/recharge",
 
     "pages/articles/articles",
-        "pages/articles/details/details",
-    "pages/shijing/details/details",        
-    "pages/flooring/flooring",            
-    "pages/shijing/shijing"
->>>>>>> a219f76d26730ee130478802deb44aa5d7df3d7c
+    "pages/shijing/shijing",
+    "pages/shijing/details/details",
+    "pages/articles/details/details",
+    "pages/flooring/flooring"
   ],
   "window":{
     "backgroundTextStyle":"light",

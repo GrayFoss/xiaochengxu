@@ -1,35 +1,38 @@
-// pages/index/earn/earn.js
+// pages/index/submit/submit.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    submit_data: [
-      { title: '提交安装实景图', backgroundColor: '#ff6262', nav: './../check-scene/check-scene'},
-      { title: '提交有色差的产品', backgroundColor: '#6bcb70', nav: './../check-product-color/check-product-color' },
-      { title: '提交信息缺失的产品', backgroundColor: '#f59b57', nav: './../check-product/check-product' },
+    header: [
+      { "name": "已提交", seleClass: "seleClass"},
+      { "name": "审核通过", seleClass: "" },
     ],
-    wh: 0
+    seleClass: { "name": "已提交", seleClass: "seleClass" },
   },
-
+  seleSubmit: function (e) {
+    this.data.header.forEach(res => {
+      res.seleClass = "";
+      if (res.name === e.currentTarget.dataset.hi.name) {
+        res.seleClass = 'seleClass';
+      }
+    })
+    this.setData({
+      header: this.data.header,
+      seleClass: e.currentTarget.dataset.hi
+    })
+    console.log(this.data.seleClass.name)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          wh: res.windowHeight
-        })
-      }
-    })
+  
   },
-  gotoScene: function(e){
-    console.log(e);
+  gotoScene: function(){
     wx.navigateTo({
-      url: `${e.currentTarget.dataset.url.nav}`,
+      url: './../submitScene/submitScene',
     })
   },
   /**

@@ -35,6 +35,16 @@ Page({
       })
     }
   },
+  gotoEarn: function() {
+    wx.navigateTo({
+      url: './earn/earn',
+    })
+  },
+  gotoRecharge: function () {
+    wx.navigateTo({
+      url: './recharge/recharge',
+    })
+  },
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({

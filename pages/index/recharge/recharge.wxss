@@ -1,0 +1,49 @@
+/* pages/product/recharge.wxss */
+.recharge {
+  padding: 5%;
+}
+
+.recharge-title{
+  font-size: 28rpx;
+  margin: 20rpx 0;
+}
+
+.recharge-btn button{
+  width: 40%;
+  margin: 2%  5% 0  5%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 1px solid #00CC66;
+  color: #00CC66;
+}
+
+.recharge-money{
+  text-align: center;
+  font-size: 28rpx;
+}
+.recharge-money view{
+  display: inline;
+  font-size: 46rpx;
+  color: red;
+  padding-right: 10rpx; 
+  font-weight: 900;
+}
+.recharge-bottom {
+  margin-top: 500rpx;
+  text-align: center;
+}
+.checkbox {
+  font-size: 30rpx;
+  line-height: 30rpx;
+  padding: 15rpx;
+}
+.recharge-pro{
+  color: #0066FF;
+  position: relative;
+  top: 7rpx;
+}
+
+.checkbox label  > text{
+  position: relative;
+  top: 7rpx;
+}

@@ -1,37 +1,20 @@
-// pages/index/earn/earn.js
+// pages/product/scene/scene.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    submit_data: [
-      { title: '提交安装实景图', backgroundColor: '#ff6262', nav: './../check-scene/check-scene'},
-      { title: '提交有色差的产品', backgroundColor: '#6bcb70', nav: './../check-product-color/check-product-color' },
-      { title: '提交信息缺失的产品', backgroundColor: '#f59b57', nav: './../check-product/check-product' },
-    ],
-    wh: 0
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          wh: res.windowHeight
-        })
-      }
-    })
+  
   },
-  gotoScene: function(e){
-    console.log(e);
-    wx.navigateTo({
-      url: `${e.currentTarget.dataset.url.nav}`,
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
