@@ -1,5 +1,6 @@
 {
   "pages":[
+<<<<<<< HEAD
     "pages/index/submit/submit",
     "pages/shijing/shijing",
     "pages/shijing/details/details",
@@ -8,6 +9,14 @@
     "pages/index/index",
     "pages/articles/details/details",
     "pages/flooring/flooring"
+=======
+
+    "pages/articles/articles",
+        "pages/articles/details/details",
+    "pages/shijing/details/details",        
+    "pages/flooring/flooring",            
+    "pages/shijing/shijing"
+>>>>>>> a219f76d26730ee130478802deb44aa5d7df3d7c
   ],
   "window":{
     "backgroundTextStyle":"light",
