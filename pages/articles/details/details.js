@@ -16,7 +16,7 @@ Page({
     let id = options.id || 63;
     const that = this;
     wx.request({
-      url: `http://m.wecareroom.com/api/article/article/${id}`, //仅为示例，并非真实的接口地址
+      url: `https://wecareroom.com/api/article/article/${id}`, //仅为示例，并非真实的接口地址
       data: {
       },
       header: {

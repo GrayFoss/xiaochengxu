@@ -5,9 +5,7 @@
         "pages/articles/details/details",
     "pages/shijing/details/details",        
     "pages/flooring/flooring",            
-    "pages/shijing/shijing",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/shijing/shijing"
   ],
   "window":{
     "backgroundTextStyle":"light",

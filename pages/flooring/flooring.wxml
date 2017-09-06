@@ -13,7 +13,7 @@
   </scroll-view>
   <scroll-view scroll-y class="scroll-view_V">
     <view wx:for="{{productList}}" bindtap="showDetail" data-select="{{item}}" class="scroll-view-item">
-      <image class="product-img" src="http://image.wecareroom.com/upload/product_t/{{item.code}}.png"></image>
+      <image class="product-img" src="http://image.wecareroom.com/upload/product_t/128-24/{{item.code}}.png"></image>
       <view class="product-name">{{item.name}}</view>
       <view class="product-price">{{item.code}}</view>
     </view>
@@ -30,7 +30,7 @@
           <image src="./img/close.png" bindtap="showDetail" ></image>
         </view> 
         <view class="detail-content">
-          <image wx:if="{{selectPro.code}}" src="http://image.wecareroom.com/upload/product_t/{{selectPro.code}}.png"></image>
+          <image wx:if="{{selectPro.code}}" src="http://image.wecareroom.com/upload/product_t/128-24/{{selectPro.code}}.png"></image>
           <view wx:if="{{selectPro.name}}">名称: {{selectPro.name}}</view>
           <view wx:if="{{selectPro.code}}">编号: {{selectPro.code}}</view>
           <view wx:if="{{selectPro.standard}}">规格: {{selectPro.standard}}</view>

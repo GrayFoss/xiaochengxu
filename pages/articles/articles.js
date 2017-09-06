@@ -35,11 +35,10 @@ Page({
   onLoad: function (options) {
     const that = this;
     wx.request({
-      url: 'http://m.wecareroom.com/api/article/listArticles?', //仅为示例，并非真实的接口地址
+      url: 'https://wecareroom.com/api/article/listArticles?', //仅为示例，并非真实的接口地址
       data: {
         page: '1',
-        cate: '1',
-        limit: 'undefined'
+        cate: '1'
       },
       header: {
         'content-type': 'application/json'
