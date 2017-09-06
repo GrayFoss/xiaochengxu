@@ -1,0 +1,13 @@
+<view class="submit_main" style="height: {{wh}}px">
+  <view class='submit_list' wx:for="{{submit_data}}">
+    <view class='hint' style='background-color: {{item.backgroundColor}}'>
+    </view>
+    <view class='submit_title'>
+      <text>{{item.title}}</text>
+    </view>
+    <view class='submit_right'>
+      <text>查看</text>
+      <image src='./../img/select.png'></image>   
+    </view>
+  </view>
+</view>

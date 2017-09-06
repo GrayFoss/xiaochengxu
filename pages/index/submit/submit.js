@@ -1,36 +1,34 @@
-
-var WxParse = require('../../../wxParse/wxParse.js');
+// pages/index/submit/submit.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    title: ''
+    header: [
+      { "name": "已提交", seleClass: "seleClass"},
+      { "name": "审核通过", seleClass: "" },
+    ],
+    seleClass: { "name": "已提交", seleClass: "seleClass" },
   },
-
+  seleSubmit: function (e) {
+    this.data.header.forEach(res => {
+      res.seleClass = "";
+      if (res.name === e.currentTarget.dataset.hi.name) {
+        res.seleClass = 'seleClass';
+      }
+    })
+    this.setData({
+      header: this.data.header,
+      seleClass: e.currentTarget.dataset.hi
+    })
+    console.log(this.data.seleClass.name)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id);
-    let id = options.id || 63;
-    const that = this;
-    wx.request({
-      url: `https://wecareroom.com/api/article/article/${id}`, //仅为示例，并非真实的接口地址
-      data: {
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        var article = res.data.result.content.replace(/\/\s\>/g,'/>');
-        WxParse.wxParse('article', 'html', article, that, 0);
-        that.setData({
-          title: res.data.result.title
-        })
-      }
-      
-    })
+  
   },
 
   /**

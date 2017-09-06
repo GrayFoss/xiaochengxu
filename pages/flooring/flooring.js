@@ -71,7 +71,7 @@ Page({
   onLoad: function (options) {
     var that = this
     wx.request({
-      url: 'http://immersive.wecareroom.com/api/stpaul/product/listProducts',
+      url: 'https://wecareroom.com/api/stpaul/product/listProducts',
       data: {
         type: 'FLOORING',
         filter: that.data.loadDataUrl,

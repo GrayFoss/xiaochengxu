@@ -1,13 +1,13 @@
 {
   "pages":[
-
-    "pages/articles/articles",
-        "pages/articles/details/details",
-    "pages/shijing/details/details",        
-    "pages/flooring/flooring",            
+    "pages/index/submit/submit",
     "pages/shijing/shijing",
+    "pages/shijing/details/details",
+    "pages/articles/articles",
+    "pages/index/earn/earn",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/articles/details/details",
+    "pages/flooring/flooring"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -30,13 +30,19 @@
         "pagePath": "pages/flooring/flooring",
         "text": "产品"
       },
-     
       {
         "selectedColor": "#e32128",
         "selectedIconPath": "pages/assets/img/shijing_click.png",
         "iconPath": "pages/assets/img/shijing_notclick.png",                
         "pagePath": "pages/shijing/shijing",
         "text": "实景家装"
+      },
+      {
+        "selectedColor": "#e32128",
+        "selectedIconPath": "pages/assets/img/geren_click.png",
+        "iconPath": "pages/assets/img/geren_notclick.png",
+        "pagePath": "pages/index/index",
+        "text": "个人中心"
       }
     ]
   }

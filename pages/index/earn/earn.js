@@ -1,35 +1,29 @@
-
-var WxParse = require('../../../wxParse/wxParse.js');
+// pages/index/earn/earn.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    title: ''
+    submit_data: [
+      { title: '提交安装实景图', backgroundColor: '#ff6262', nav: ''},
+      { title: '提交有色差的产品', backgroundColor: '#6bcb70', nav: '' },
+      { title: '提交信息缺失的产品', backgroundColor: '#f59b57', nav: '' },
+    ],
+    wh: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id);
-    let id = options.id || 63;
-    const that = this;
-    wx.request({
-      url: `https://wecareroom.com/api/article/article/${id}`, //仅为示例，并非真实的接口地址
-      data: {
-      },
-      header: {
-        'content-type': 'application/json'
-      },
+    let that = this;
+    wx.getSystemInfo({
       success: function (res) {
-        var article = res.data.result.content.replace(/\/\s\>/g,'/>');
-        WxParse.wxParse('article', 'html', article, that, 0);
         that.setData({
-          title: res.data.result.title
+          wh: res.windowHeight
         })
       }
-      
     })
   },
 
