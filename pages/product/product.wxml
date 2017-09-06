@@ -1,0 +1,16 @@
+<swiper indicator-dots="{{indicatorDots}}" 
+autoplay="{{autoplay}}" interval="{{interval}}"
+ duration="{{duration}}" circular="{{circular}}" autoplay="{{autoplay}}" >
+    <block wx:for="{{imgUrls}}">
+         <swiper-item  style="background:url({{item}});background-repeat: no-repeat;background-size:100% 200px; ">
+    </swiper-item>
+    </block>
+</swiper>
+<view class="product_list" wx:for="{{productList}}" 
+  style="border:1px solid {{item.color}};color:{{item.color}}"
+  bindtap="goItem" data-proType="{{item.type}}"
+   data-pro="{{item.pro}}"
+>
+  <image src="{{item.imgUrl}}"></image>
+  <text>{{item.name}}</text>
+</view>

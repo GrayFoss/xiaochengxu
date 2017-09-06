@@ -3,7 +3,7 @@
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="main" style="height:{{wh}}px;">
     <block wx:for="{{imgUrls}}">
       <swiper-item style="position: relative;">
-        <image src="http://image.wecareroom.com/upload/immersive/products/real/{{item.floorName}}/{{item.url}}.jpg" class="slide-image"/>
+        <image mode="aspectFit" src="http://image.wecareroom.com/upload/immersive/products/real/{{item.floorName}}/{{item.url}}.jpg" class="slide-image"/>
         <view class="room">
           <view>
             <text>{{item.floorName}}     {{item.current}}</text>

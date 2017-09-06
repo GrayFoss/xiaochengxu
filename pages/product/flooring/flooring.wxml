@@ -1,0 +1,55 @@
+<view class="section">
+<view class='search_main'>
+<image src="../img/search.png" class="search_logo" />
+<input bindblur="bindBlur" placeholder="请输入搜索内容"/>
+</view>
+</view>
+<view class="plate">
+</view>
+  <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
+    <view wx:for="{{type}}" bindtap="changeUrl" data-url="{{item.url}}"  class="scroll-view-item_H">
+      {{item.name}}
+    </view>
+    <image class="filter" bindtap="showFilter" src="../img/down.png" ></image>
+  </scroll-view>
+  <view class="filter_item" hidden="{{isFilter}}">
+     <button size="mini">价格排序</button> 
+     <button size="mini">已拥有</button>
+     <button size="mini">未拥有</button>
+  </view>
+  <scroll-view scroll-y class="scroll-view_V">
+    <view wx:for="{{productList}}" bindtap="showDetail" data-select="{{item}}" class="scroll-view-item">
+      <image class="product-img" src="http://image.wecareroom.com/upload/product_t/{{item.code}}.png"></image>
+      <view class="product-name">{{item.name}}</view>
+      <view class="product-price">{{item.label_price}}云豆</view>
+    </view>
+    <view class="loading" wx:if="{{productList.length === 0 }}">
+      加载中...
+    </view>
+  </scroll-view>
+   <view class="wrap" hidden="{{!isDetail}}"></view>
+   <view class="wrap_dialog"  hidden="{{!isDetail}}"> 
+        <view class="detail-header">购买商品
+          <image src="../img/close.png" bindtap="showDetail" ></image>
+        </view> 
+        <view class="detail-content">
+          <image wx:if="{{selectPro.code}}" src="http://image.wecareroom.com/upload/product_t/{{selectPro.code}}.png"></image>
+          <view>名称: {{selectPro.name}}</view>
+          <view>编号: {{selectPro.code}}</view>
+          <view>规格: {{selectPro.standard}}</view>
+          <view>表面工艺: {{selectPro.flooring_surface}}</view>
+          <view></view>
+        </view>
+        <view class="detail-pay">
+          <view class="left">本次购买消耗</view>
+          <view class="right">云豆</view>
+          <view class="right cost" wx:if="{{selectPro.label_price}}">{{selectPro.label_price}}</view>
+          <view class="right cost" wx:if="{{!selectPro.label_price}}">888</view>
+        </view>
+         <view class="detail-money">
+          <view class="left">目前云豆数量</view>
+          <view class="right">1000</view>
+        </view>
+        <button type="primary">立即购买</button>
+        <button class="no-use" bindtap="goRecharge">充值云豆</button>
+   </view>  

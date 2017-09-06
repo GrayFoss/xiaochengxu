@@ -1,0 +1,29 @@
+/* pages/geren/geren.wxss */
+.main{
+  padding: 30rpx;
+}
+.recharge_header {
+  padding: 15rpx;
+  font-size: 32rpx;
+  border-bottom: 1px solid #00CC66;
+  text-align: center;
+  color: #00CC66;
+  margin: 0 auto;
+}
+.center{
+  text-align: center;
+  font-size: 28rpx;
+  padding: 20rpx 0 10rpx 0 ;
+}
+.weui-form-preview__bd {
+  padding:5px 15px;
+  font-size:.9em;
+  text-align:left;
+  color:#999;
+  line-height:2;
+}
+
+.weui-form-preview__label{
+  margin-right:0;
+  min-width:1em;
+}

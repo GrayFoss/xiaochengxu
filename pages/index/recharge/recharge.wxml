@@ -1,0 +1,21 @@
+<view class="recharge">
+  <view class="recharge-title">充值数量:</view>
+  <view class="recharge-btn">
+    <button size="mini" wx:for="{{cost}}" data-money="{{item}}" bindtap="wantPay">{{item}}云豆</button>
+  </view>
+ <view class="recharge-title">应付金额:</view>
+  <view class="recharge-money">
+    <view>{{paymoney}}</view>元
+  </view>
+  <view class="recharge-bottom">
+    <checkbox-group  class="checkbox" bindchange="checkboxChange">
+      <label wx:for="{{items}}">
+        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>
+        <text>同意</text>
+      </label>
+      <text class="recharge-pro"> 《云购买协议》</text>
+    </checkbox-group>
+    <button type="primary">立即充值</button>
+  </view>
+</view>
+

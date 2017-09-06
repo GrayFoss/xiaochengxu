@@ -1,0 +1,23 @@
+<view class="sub">
+    <view class="sub-type">产品编号:</view>
+    <input class="sub-content" value="{{codeInputVal}}"  bindinput="codeInputTyping"/>
+</view>
+<view class="weui-cells searchbar-result" wx:if="{{codeInputVal.length > 0 && codeSearchWord.length  >0 && showCodeSearch}}">
+        <view> 匹配产品编号 </view>
+        <view wx:for="{{codeSearchWord}}" class="weui-cell__bd">
+            <view bindtap="codeSelectItem" data-chooseCode="{{item}}">{{item}}</view>
+        </view>
+</view>
+<view class="sub">
+    <view class="sub-type">相关描述:</view>
+    <view class="sub-content none-border"></view>
+</view>
+<textarea class="submit-desc" value="{{text}}" bindinput="inputDesc" placeholder="#色差太严重了，明明是棕色，怎么显示的是红色！#" />
+
+
+<view class="hint">
+  <view>温馨提示</view>
+  <view>1.请确保上传图片清晰可识别</view>
+  <view>2.经审核通过后，将给予您不同额度的云豆奖励</view>
+  <button type="primary" bindtap="submitProduct">马上提交</button>
+</view>

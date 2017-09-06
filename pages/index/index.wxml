@@ -1,0 +1,38 @@
+<view class="user_header">
+  <image src='./img/geren_background.png' class="user_brandground"></image>
+  <image src="{{userInfo.avatarUrl}}" class="user_avatar"></image>
+  <text class="user_name">{{userInfo.nickName}}</text>
+</view>
+<view class="yundou">
+  <view class="recharge yun" bindtap='gotoRecharge'>
+    <view class='yun_text'>
+      <text>充值云豆</text>
+    </view>
+    <image src='./img/select.png' class='yun_img'></image>
+  </view>
+  <view class="earn yun" bindtap='gotoEarn'>
+     <view class='yun_text'>
+       <text>赚取云豆</text>
+       <view class='special'> </view>
+     </view>
+    <image src='./img/select.png' class='yun_img'></image>
+  </view>
+</view>
+
+<view class='login_in_header'>
+  <view></view>
+  <text>签到</text>
+  <view></view>
+</view>
+<view class='login_get'>
+  <view class='point_to'></view>
+  <view class='login_content'>
+    <text class='day_title'>累计签到天数: </text>
+    <text class='day'>20</text>
+  </view>
+  <view class='yun_number'>
+    <image src='./img/dou.png' class='dou'></image>
+    <text>*1</text>
+  </view>
+  <button class='submit'>领取奖励</button>
+</view>

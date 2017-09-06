@@ -1,0 +1,56 @@
+<view class="sub">
+  <view class="sub-type">省份选择:</view>
+  <picker class="sub-content"  mode="region" bindchange="bindRegionChange" value="{{region}}">
+     {{region[0]}}-{{region[1]}}-{{region[2]}}
+  </picker>
+</view>
+<view class="sub">
+    <view class="sub-type">详细地址:</view>
+    <input  class="sub-content" value="{{address}}" bindinput="inputAddress"  placeholder="例如:湘江中路xx小区B座20楼"/>
+</view>
+<view class="sub">
+    <view class="sub-type">地板名称:</view>
+    <input class="sub-content" value="{{productName}}"  bindinput="inputTyping"/>
+</view>
+<view class="weui-cells searchbar-result" wx:if="{{productName.length > 0 && searchWord.length  >0 && showSearch}}">
+        <view> 匹配地板名称 </view>
+        <view wx:for="{{searchWord}}" class="weui-cell__bd">
+            <view bindtap="selectItem" data-chooseValue="{{item}}">{{item}}</view>
+        </view>
+</view>
+<view class="sub">
+  <view class="sub-type">安装位置:</view>
+  <picker class="sub-content" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      {{ index ? array[index] : array[0]}}
+  </picker>
+</view>
+
+<view class="weui-cell__bd">
+    <view class="weui-uploader">
+        <view class="weui-uploader__hd">
+            <view class="weui-uploader__title">图片上传</view>
+            <view class="weui-uploader__info">{{files.length}}/9</view>
+        </view>
+        <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" >
+                            <icon type="cancel" size="18" color="red" catchtap="delPhoto" data-index="{{index}}" />
+                        </image>
+                    </view>
+                </block>
+            </view>
+            <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="hint">
+  <view>温馨提示</view>
+  <view>1.请确保上传图片清晰可识别</view>
+  <view>2.经审核通过后，将给予您不同额度的云豆奖励</view>
+  <button type="primary" bindtap="submit">马上提交</button>
+</view>
