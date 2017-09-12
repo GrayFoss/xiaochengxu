@@ -37,5 +37,17 @@
           <view wx:if="{{selectPro.flooring_surface}}">表面工艺: {{selectPro.flooring_surface}}</view>
           <view wx:if="{{selectPro.color}}">颜色: {{selectPro.color}}</view>
         </view>
-         <view id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view>
+        <view  id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view>
+       <view class="detail-pay">
+          <view class="left">本次购买消耗</view>
+          <view class="right">云豆</view>
+          <view class="right cost" wx:if="{{selectPro.label_price}}">{{selectPro.label_price}}</view>
+          <view class="right cost" wx:if="{{!selectPro.label_price}}">888</view>
+        </view>
+         <view class="detail-money">
+          <view class="left">目前云豆数量</view>
+          <view class="right">1000</view>
+        </view>
+        <button type="primary">立即购买</button>
+        <button class="no-use" bindtap="goRecharge">充值云豆</button>
    </view>  

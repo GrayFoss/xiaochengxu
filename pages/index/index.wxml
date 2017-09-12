@@ -1,7 +1,11 @@
 <view class="user_header">
-  <image src='./img/geren_background.png' class="user_brandground"></image>
-  <image src="{{userInfo.avatarUrl}}" class="user_avatar"></image>
+  <image  src='./img/geren_background.png' class="user_brandground"></image>
+  <image wx:if="{{userInfo.avatarUrl}}" src="{{userInfo.avatarUrl}}" class="user_avatar"></image>
   <text class="user_name">{{userInfo.nickName}}</text>
+  <view class="now_money">
+     <image src='./img/dou.png' class='now_dou'></image>
+      <text>{{user.balance}}</text>
+  </view>
 </view>
 <view class="yundou">
   <view class="recharge yun" bindtap='gotoRecharge'>
@@ -28,11 +32,12 @@
   <view class='point_to'></view>
   <view class='login_content'>
     <text class='day_title'>累计签到天数: </text>
-    <text class='day'>20</text>
+    <text class='day'>{{user.checkInCount}}</text>
   </view>
   <view class='yun_number'>
     <image src='./img/dou.png' class='dou'></image>
-    <text>*1</text>
+    <text>*{{user.checkInCount}}</text>
   </view>
-  <button class='submit'>领取奖励</button>
+  <button wx:if="{{user.checked === true}}" class='submit' bindtap="key" disabled="{{isRecieved}}">{{word}}</button>
+  <button wx:else class='submit' disabled="true">已领取</button>
 </view>

@@ -6,19 +6,51 @@ Page({
    */
   data: {
     paymoney: 30,
-    cost: [30,100,300,500],
+    cost: [
+       { price:30,
+         isChecked: true
+       },
+       {
+         price: 100,
+         isChecked: false
+       },
+       {
+         price: 300,
+         isChecked: false
+       },
+       {
+         price: 500,
+         isChecked: false
+       }],
     items: [
       { name: 'agree', value: '同意', checked: 'true' }
-    ]
+    ],
+    agree: true
   },
-  wantPay: function(e){
+  choosePay: function(e){
     var money = e.currentTarget.dataset.money
+    var that = this
+    this.data.cost.forEach( cost => {
+      cost.isChecked = false
+      if(cost.price === money){
+        cost.isChecked = true
+      }
+    } )
     this.setData({
-      paymoney: money
+      paymoney: money,
+      cost: this.data.cost
     })
   },
   checkboxChange: function (e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value)
+    this.setData({
+        agree: !this.data.agree
+    })
+  },
+  gotoProtocol: function(){
+    wx.navigateTo({
+      url: '../protocol/protocol',
+    })
   },
   /**
    * 生命周期函数--监听页面加载

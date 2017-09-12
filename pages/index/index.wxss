@@ -134,6 +134,7 @@
   height: 60rpx;
   margin-right: 20rpx;
 }
+
 .submit{
   width: 190rpx;
   height: 60rpx;
@@ -144,4 +145,20 @@
   border: none;
   padding: 0;
   line-height: 60rpx;
+}
+
+.now_money{
+  position:absolute;
+  right:30rpx;
+  top:30rpx;
+  background:white;
+  padding:0 15rpx;
+  font-size:40rpx;
+  border-radius:50rpx;
+}
+
+.now_dou{
+  width: 35rpx;
+  height:35rpx;
+  margin-right: 5rpx;
 }

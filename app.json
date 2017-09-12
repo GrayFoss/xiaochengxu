@@ -1,11 +1,13 @@
-{
+ {
   "pages":[
+    "pages/login/login",
     "pages/index/index",
     "pages/index/submitProductColor/submitProductColor",
     "pages/index/check-product/check-product",
     "pages/index/check-product-color/check-product-color",
     "pages/index/earn/earn",
    
+
     "pages/index/check-scene/check-scene",
 
     "pages/index/protocol/protocol",

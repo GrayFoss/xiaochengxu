@@ -65,6 +65,11 @@ Page({
       this.onLoad()
     }else{}
   },
+  goRecharge: function (){
+    wx.navigateTo({
+      url: '../index/recharge/recharge',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

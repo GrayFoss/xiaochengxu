@@ -47,3 +47,8 @@
   position: relative;
   top: 7rpx;
 }
+
+.active {
+  background: #00CC66;
+  color: white !important;
+}

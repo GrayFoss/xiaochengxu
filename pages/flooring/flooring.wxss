@@ -53,6 +53,32 @@ height: 120rpx;
     position: relative;
 }
 
+.filter {
+  width:50rpx;
+  height:25rpx;
+  position:fixed;
+  right:0;
+  top:130rpx;
+  background:white;
+  padding:20rpx 40rpx ;
+}
+
+.filter_item{
+  text-align: center;
+  border-top: 2rpx solid #e4e4e4;
+  height: 100rpx;
+  position: absolute;
+  z-index: 999;
+  background: white;
+  width: 100%;
+}
+.filter_item > button{
+  margin: 20rpx 30rpx;
+  color: #555;
+  font-size: 28rpx;
+  border: 2rpx solid #c1c1c1;
+}
+
 .scroll-view_V {
   height: 880rpx;
   background-color: #f4f4f4;
@@ -148,6 +174,37 @@ height: 120rpx;
    line-height: 45rpx;
  }
 
+ .detail-pay,.detail-money{
+   clear: both;
+   height: 50rpx;
+   width: 100%;
+   padding:10rpx;
+   font-size: 28rpx;
+   color: #555;
+   line-height: 50rpx;
+ }
+ .detail-pay{
+     border-top: 2rpx solid #e4e4e4;
+      margin-top: 30rpx;
+ }
+ .detail-money{
+    border-bottom: 2rpx solid #e4e4e4;
+ }
+
+.cost{
+   font-size: 48rpx;
+   color: #e62129;
+   line-height: 40rpx;
+   padding-right: 10rpx;
+ }
+
+ .left{
+   float: left;
+ }
+ .right{
+   float: right;
+ }
+
 .no-use{
   background: #888;
   color: white;
@@ -169,6 +226,8 @@ height: 120rpx;
    font-size: 28rpx;
    color: #555;
    text-align: left;
+   max-height:200rpx;
+   overflow: auto; 
 }
 .active_item{
   color: #e62129

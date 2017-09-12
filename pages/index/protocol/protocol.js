@@ -10,16 +10,6 @@ Page({
       '云豆不能兑换现金，不能进行转账交易，不能兑换本系统体系外的产品和服务。'
     ]
   },
-  gotoScene: function(){
-    wx.navigateTo({
-      url: 'submitScene/submitScene',
-    })
-  },
-  gotoProduct: function () {
-    wx.navigateTo({
-      url: 'submitProduct/submitProduct',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */

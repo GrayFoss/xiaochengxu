@@ -1,4 +1,5 @@
 // pages/geren/submitScene/submitScene.js
+const app = getApp()
 Page({
 
   /**
@@ -38,48 +39,70 @@ Page({
   },
   // 提交地板
   submitProduct: function() {
-    console.log(this.data.codeInputVal);
-    console.log(this.data.text);
-    var code = this.data.codeInputVal
-    var text = this.data.text
-    if (code && text) {
-      wx.request({
-        url: 'https://wecareroom.com/api/stpaul/debug/submitProductDebug',
-        data: {
-          type: '色差产品',
-          productCode: code,
-          content: text
-        },
-        method: 'POST',
-        success: (res) => {
-          console.log(res);
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success'
+    var code = this.data.codeInputVal;
+    var text = this.data.text;
+    var that = this
+    wx.request({
+      url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+      method: 'GET',
+      data: {
+        key: app.globalData.key
+      },
+      success: function (e) {
+        console.log(e);
+        if (e.data.status.error === 0) {
+          console.log("验证登陆状态成功");
+          that.setData({
+            ownMoney: e.data.result.balance
           })
-          setTimeout(function(){
-            wx.navigateBack({
-              delta: 1
+          if (code && text) {
+            wx.request({
+              url: 'https://wecareroom.com/api/stpaul/debug/submitProductDebug',
+              data: {
+                type: 'productDebug',
+                productCode: code,
+                content: text,
+                key: app.globalData.key
+              },
+              method: 'POST',
+              success: (res) => {
+                console.log(res);
+                if (res.data.status.error ===0) {
+                  wx.showToast({
+                    title: '提交成功',
+                    icon: 'success'
+                  })
+                  setTimeout(function () {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  }, 1500)
+                }
+              }
             })
-          }, 1500)
-    
-        }
-      })
-    }
-    else {
-      wx.showModal({
-        title: '信息填写不完整',
-        content: '请填写完整的反馈信息',
-        confirmText: '继续填写',
-        success: (res) => {
-          if (res.confirm) {
-            console.log(res);
-          } else {
-            console.log(res);
           }
+          else {
+            wx.showModal({
+              title: '信息填写不完整',
+              content: '请填写完整的反馈信息',
+              confirmText: '继续填写',
+              success: (res) => {
+                if (res.confirm) {
+                  console.log(res);
+                } else {
+                  console.log(res);
+                }
+              }
+            })
+          }
+        } else {
+          console.log("验证登陆状态失败");
+          wx.reLaunch({
+            url: 'pages/login/login',
+          })
         }
-      })
-    }
+      },
+    })
   },
   /**
    * 生命周期函数--监听页面加载
