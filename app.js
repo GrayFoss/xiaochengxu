@@ -6,13 +6,13 @@ App({
     key: ''
   },
   onLaunch: function () {
-    // var that = this
-    // wx.login({
-    //   success: function (res) {
-    //     console.log(res);
-    //     that.globalData.code = res.code;
-    //   }
-    // })
+    var that = this
+    wx.login({
+      success: function (res) {
+        console.log(res);
+        that.globalData.code = res.code;
+      }
+    })
   },
   getUserInfo: function (cb) {
     var that = this
