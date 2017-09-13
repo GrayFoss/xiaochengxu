@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     ownMoney: '加载ing',
@@ -42,7 +41,6 @@ Page({
     wx.getStorage({
       key: 'sessionKey',
       success: function (res) {
-        console.log("sessionKey");
         var key = res.data;
           wx.request({
             url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
@@ -51,14 +49,11 @@ Page({
               key: key
             },
             success: function (e) {
-              console.log(e);
               if (e.data.status && e.data.status.error === 0) {
-                console.log("验证登陆状态成功");
                 that.setData({
                   ownMoney: e.data.result.balance
                 })
               } else {
-                console.log("验证登陆状态失败");
                 wx.reLaunch({
                   url: '/pages/login/login',
                 })

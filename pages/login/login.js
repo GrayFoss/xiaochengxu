@@ -27,7 +27,6 @@ Page({
           },
           success: function (e) {
             if (e.data && e.data.status.error === 0) {
-              console.log("登陆成功!");
               wx.setStorage({
                 key: "sessionKey",
                 data: e.data.result
@@ -67,7 +66,6 @@ Page({
             key: key
           },
           success: function (e) {
-            console.log(e);
             if (e.data.status.error === 0) {
               wx.showLoading({
                 title: '自动登陆中...',
@@ -83,7 +81,6 @@ Page({
                 title: '验证登陆状态失败',
                 duration: 1000
               })
-              console.log("验证登陆状态失败");
             }
           },
         })
