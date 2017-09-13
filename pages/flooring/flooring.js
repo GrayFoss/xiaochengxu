@@ -25,6 +25,27 @@ Page({
       selectPro: select
     })
   },
+  payment: function() {
+    wx.requestPayment(
+    {
+    'timeStamp': '1505210441',
+    'nonceStr': 'jSeQEN7Fv6oMfsi7',
+    'package': 'prepay_id=wx2017091218004176dd2906c30882165983',
+    'signType': 'MD5',
+    'paySign': '5D06E958C51BD78DF667F96143A54511',
+    'success':function(res){
+      console.log("success")
+      console.log(res)
+    },
+    'fail':function(res){
+      console.log("fail")
+      console.log(res)
+    },
+    'complete':function(res){
+      console.log(res)
+    }
+    });
+  },
   bindBlur: function (e) {
     if (e.detail.value){
       const xx = this.data.initProductList.filter(pro => {
