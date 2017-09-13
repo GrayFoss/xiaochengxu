@@ -41,11 +41,12 @@ Page({
     var that = this
     wx.request({
       url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-      method: 'GET',
+      method: 'POST',
       data: {
         key: app.globalData.key
       },
       success: function (e) {
+        console.log(e)
         if (e.data.status.error === 0) {
           that.setData({
             user: e.data.result
@@ -53,7 +54,7 @@ Page({
           console.log(that.data.user)
         } else {
           wx.reLaunch({
-            url: 'pages/login/login',
+            url: '/pages/login/login',
           })
         }
       },

@@ -24,6 +24,7 @@ Page({
         iv: info.iv
       },
       success: function(e){
+        console.log(e)
         if (e.data && e.data.status.error  === 0){
           app.globalData.key =  e.data.result
           wx.reLaunch({
