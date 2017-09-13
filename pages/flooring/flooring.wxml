@@ -36,6 +36,7 @@
           <view wx:if="{{selectPro.standard}}">规格: {{selectPro.standard}}</view>
           <view wx:if="{{selectPro.flooring_surface}}">表面工艺: {{selectPro.flooring_surface}}</view>
           <view wx:if="{{selectPro.color}}">颜色: {{selectPro.color}}</view>
+          <button bindtap="payment" type="primary">xxxxxx</button>
         </view>
         <view  id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view>
        <view class="detail-pay">
