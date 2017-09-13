@@ -9,4 +9,5 @@
 <view class="info">绑定手机号，立即体验《云深间造小程序》</view>
 <span style="font-size:14px;"><button type="primary" class="login_button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号</button></span>  
 
+
 <!-- <span style="font-size:14px;"><button open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取用户信息</button></span>   -->

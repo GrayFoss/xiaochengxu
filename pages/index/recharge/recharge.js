@@ -1,34 +1,102 @@
 // pages/product/recharge.js
+const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    paymoney: 30,
+    paymoney: 1,
+    detail: '标准套餐',
+    // cost: [
+    //    { price:3000,
+    //      isChecked: true
+    //    },
+    //    {
+    //      price: 10000,
+    //      isChecked: false
+    //    },
+    //    {
+    //      price: 30000,
+    //      isChecked: false
+    //    },
+    //    {
+    //      price: 50000,
+    //      isChecked: false
+    //    }],
     cost: [
-       { price:30,
-         isChecked: true
-       },
-       {
-         price: 100,
-         isChecked: false
-       },
-       {
-         price: 300,
-         isChecked: false
-       },
-       {
-         price: 500,
-         isChecked: false
-       }],
+      {
+        price: 1,
+        isChecked: true,
+      }],
     items: [
       { name: 'agree', value: '同意', checked: 'true' }
     ],
     agree: true
   },
+  recharge: function(){
+    console.log("paymoney:", this.data.paymoney);
+    var that = this;
+    wx.request({
+      url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+      method: 'GET',
+      data: {
+        key: app.globalData.key
+      },
+      success: function (e) {
+        console.log(e);
+        if (e.data.status.error === 0) {
+          console.log("验证登陆状态成功");
+          wx.login({
+            success: function (res) {
+              var myCode = res.code;
+              wx.request({
+                url: 'https://wecareroom.com/api/stpaul/payment/createWxAppPay',
+                method: 'post',
+                data: {
+                  balance: that.data.paymoney,
+                  key: app.globalData.key,
+                  body: that.data.detail,
+                  code: myCode
+                },
+                success: function (e) {
+                  console.log(e);
+                  var message = e.data.result;
+                  wx.requestPayment(
+                    {
+                      'timeStamp': message.timeStamp,
+                      'nonceStr': message.nonceStr,
+                      'package': message.package,
+                      'signType':  'MD5',
+                      'paySign': message.paySign,
+                      'success': function (res) { 
+                        console.log("支付成功")
+                        console.log(res)
+                      },
+                      'fail': function (res) { 
+                        console.log("支付失败")
+                        console.log(res)
+                      },
+                      'complete': function (res) { }
+                    })
+                }, fail: function () {
+
+                }, complete: function () {
+                }
+              })
+            }
+          })
+        } else {
+          console.log("验证登陆状态失败");
+          wx.reLaunch({
+            url: 'pages/login/login',
+          })
+        }
+      },
+    })
+  },
   choosePay: function(e){
     var money = e.currentTarget.dataset.money
+    var detail = e.currentTarget.dataset.detail
     var that = this
     this.data.cost.forEach( cost => {
       cost.isChecked = false
@@ -38,7 +106,8 @@ Page({
     } )
     this.setData({
       paymoney: money,
-      cost: this.data.cost
+      cost: this.data.cost,
+      detail: detail
     })
   },
   checkboxChange: function (e) {
