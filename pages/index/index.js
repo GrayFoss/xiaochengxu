@@ -39,23 +39,33 @@ Page({
     }
     // 验证登陆状态 并获取数据
     var that = this
-    wx.request({
-      url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-      method: 'GET',
-      data: {
-        key: app.globalData.key
-      },
-      success: function (e) {
-        if (e.data.status && e.data.status.error === 0) {
-          that.setData({
-            ownMoney: e.data.result.balance
+    wx.getStorage({
+      key: 'sessionKey',
+      success: function (res) {
+        console.log("sessionKey");
+        var key = res.data;
+          wx.request({
+            url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+            method: 'GET',
+            data: {
+              key: key
+            },
+            success: function (e) {
+              console.log(e);
+              if (e.data.status && e.data.status.error === 0) {
+                console.log("验证登陆状态成功");
+                that.setData({
+                  ownMoney: e.data.result.balance
+                })
+              } else {
+                console.log("验证登陆状态失败");
+                wx.reLaunch({
+                  url: '/pages/login/login',
+                })
+              }
+            },
           })
-        } else {
-          wx.reLaunch({
-            url: '/pages/login/login',
-          })
-        }
-      },
+      }
     })
   }
   ,

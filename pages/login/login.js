@@ -27,7 +27,11 @@ Page({
           },
           success: function (e) {
             if (e.data && e.data.status.error === 0) {
-              app.globalData.key = e.data.result
+              console.log("登陆成功!");
+              wx.setStorage({
+                key: "sessionKey",
+                data: e.data.result
+              })
               wx.reLaunch({
                 url: '../index/index',
               })
@@ -52,25 +56,38 @@ Page({
         userInfo: userInfo
       })
     })
-    if (app.globalData.key) {
-      wx.request({
-        url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-        method: 'GET',
-        data: {
-          key: app.globalData.key
-        },
-        success: function (e) {
-          if (e.data.status.error === 0) {
-            wx.reLaunch({
-              url: '/pages/index/index',
-            })
-          } else {
-            wx.reLaunch({
-              url: '/pages/login/login',
-            })
-          }
-        },
-      })
-    }
+    wx.getStorage({
+      key: 'sessionKey',
+      success: function (res) {
+        var key = res.data;
+        wx.request({
+          url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+          method: 'GET',
+          data: {
+            key: key
+          },
+          success: function (e) {
+            console.log(e);
+            if (e.data.status.error === 0) {
+              wx.showLoading({
+                title: '自动登陆中...',
+              })
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/pages/index/index',
+                })
+                wx.hideLoading()
+              }, 1500)
+            } else {
+              wx.showToast({
+                title: '验证登陆状态失败',
+                duration: 1000
+              })
+              console.log("验证登陆状态失败");
+            }
+          },
+        })
+      }
+    })
   }
 })
