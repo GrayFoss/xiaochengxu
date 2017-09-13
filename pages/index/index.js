@@ -34,7 +34,6 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
-          console.log(this.data.userInfo)
         }
       })
     }
@@ -47,14 +46,11 @@ Page({
         key: app.globalData.key
       },
       success: function (e) {
-        console.log(e);
         if (e.data.status && e.data.status.error === 0) {
-          console.log("验证登陆状态成功");
           that.setData({
             ownMoney: e.data.result.balance
           })
         } else {
-          console.log("验证登陆状态失败");
           wx.reLaunch({
             url: '/pages/login/login',
           })

@@ -1,4 +1,5 @@
 // pages/geren/submitScene/submitScene.js
+const app = getApp();
 Page({
 
   /**
@@ -46,13 +47,13 @@ Page({
       wx.request({
         url: 'https://wecareroom.com/api/stpaul/debug/submitProductDebug',
         data: {
-          type: '色差产品',
+          type: 'productColor',
           productCode: code,
-          content: text
+          content: text,
+          key: app.globalData.key
         },
         method: 'POST',
         success: (res) => {
-          console.log(res);
           wx.showToast({
             title: '提交成功',
             icon: 'success'

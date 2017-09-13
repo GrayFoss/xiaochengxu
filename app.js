@@ -6,13 +6,12 @@ App({
     key: ''
   },
   onLaunch: function () {
-    // var that = this
-    // wx.login({
-    //   success: function (res) {
-    //     console.log(res);
-    //     that.globalData.code = res.code;
-    //   }
-    // })
+    var that = this
+    wx.login({
+      success: function (res) {
+        that.globalData.code = res.code;
+      }
+    })
   },
   getUserInfo: function (cb) {
     var that = this
@@ -24,7 +23,6 @@ App({
         withCredentials: true,
         success: function (res) {
           that.globalData.userInfo = res.userInfo
-          console.log(res.userInfo)
           typeof cb == "function" && cb(that.globalData.userInfo)
         }
       })

@@ -5,49 +5,53 @@
 </view>
 
  <!- 没有提交实景图 -->
-<!-- <view class='no_data'>
+<view class='no_data' wx:if="{{productList.length === 0}}">
   <image mode="widthFix" src="./../img/submit_no.png"></image>
-</view>  -->
+</view>  
 
 
 <view class="data_have">
   <!--已提交  -->
-  <block wx:if="{{seleClass.name == '已提交'}}">
-    <view class="data_list">
-      <view class='data_text pass_no'>
-        <view>
-          <text>天然油棕橡</text>
+  <block wx:if="{{productList.length > 0}}">
+    <block wx:if="{{seleClass.name == '已提交'}}">
+      <view class="data_list" wx:for="{{showProductList}}">
+        <view class='data_text pass_no'>
+          <view>
+            <text>{{item.prodcutCode}}</text>
+          </view>
+          <view>
+            <text>{{item.content}}</text>
+          </view>
+          <view>
+            <text>{{item.createTime}}</text>
+            <text wx:if="{{item.state === 'approving'}}">审核中</text>
+          </view>
         </view>
-        <view>
-          <text>dkasljhdjjaskfhdjs,f</text>
-        </view>
-        <view>
-          <text>2017-8-30</text>
-          <text>审核中</text>
-        </view>
-      </view>
-    </view> 
+      </view> 
+    </block>
   </block>
 
   <!--审核通过  -->
-  <block wx:if="{{seleClass.name == '审核通过'}}">
-    <view class="data_list pass">
-      <view class='data_text'>
-        <view>
-          <text>天然油棕橡</text>
-        </view>
-        <view>
-          <text>2017-8-30</text>
-        </view>
-        <view class='pass_bottom'>
-          <text>已通过</text>
+  <block wx:if="{{productList.length > 0}}">
+    <block wx:if="{{seleClass.name == '审核通过'}}">
+      <view class="data_list pass">
+        <view class='data_text'>
           <view>
-            <image src="./../img/dou.png"></image>
-            <text>+30</text>
+            <text>{{item.prodcutCode}}</text>
+          </view>
+          <view>
+            <text>{{item.createTime}}</text>
+          </view>
+          <view class='pass_bottom'>
+            <text>已通过</text>
+            <view>
+              <image src="./../img/dou.png"></image>
+              <text>+1</text>
+            </view>
           </view>
         </view>
-      </view>
-    </view> 
+      </view> 
+    </block>
   </block>
 </view>
 

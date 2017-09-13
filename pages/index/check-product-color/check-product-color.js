@@ -1,4 +1,5 @@
 // pages/index/submit/submit.js
+const app = getApp();
 Page({
 
   /**
@@ -10,6 +11,7 @@ Page({
       { "name": "审核通过", seleClass: "" },
     ],
     seleClass: { "name": "已提交", seleClass: "seleClass" },
+    productList: []
   },
   seleSubmit: function (e) {
     this.data.header.forEach(res => {
@@ -28,7 +30,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    const that = this;
+    wx.request({
+      url: 'https://wecareroom.com/api/stpaul/debug/listRecords',
+      data: {
+        type: 'productColor',
+        key: app.globalData.key
+      },
+
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+        const arrayList = res.data.result.filter(response => {
+          return response.state === null;
+        })
+        that.setData({
+          productList: res.data.result,
+          showProductList: arrayList
+        })
+        console.log(that.data.productList.length)
+      }
+    })
   },
   gotoColor: function() {
     wx.navigateTo({
@@ -46,7 +70,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    
   },
 
   /**
