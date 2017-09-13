@@ -34,36 +34,12 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+          console.log(this.data.userInfo)
         }
       })
     }
     // 验证登陆状态 并获取数据
     var that = this
-    wx.request({
-      url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-      method: 'POST',
-      data: {
-        key: app.globalData.key
-      },
-      success: function (e) {
-        console.log(e)
-        if (e.data.status.error === 0) {
-          that.setData({
-            user: e.data.result
-          })
-          console.log(that.data.user)
-        } else {
-          wx.reLaunch({
-            url: '/pages/login/login',
-          })
-        }
-      },
-    })
-  },
-  // 领取签到奖励
-  key: function (e){
-    console.log(1);
-    let that = this;
     wx.request({
       url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
       method: 'GET',
@@ -72,48 +48,28 @@ Page({
       },
       success: function (e) {
         console.log(e);
-        if (e.data.status.error === 0) {
+        if (e.data.status && e.data.status.error === 0) {
           console.log("验证登陆状态成功");
-          wx.request({
-            url: 'https://wecareroom.com/api/stpaul/user/checkIn',
-            data: {
-              key: app.globalData.key
-            },
-            method: 'POST',
-            success: (res) => {
-              if (res.data.status.error === 0) {
-                wx.request({
-                  url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-                  method: 'GET',
-                  data: {
-                    key: app.globalData.key
-                  },
-                  success: function (e) {
-                    if (e.data.status.error === 0) {
-                      that.setData({
-                        user: e.data.result
-                      })
-                    } else {
-                      wx.reLaunch({
-                        url: 'pages/login/login',
-                      })
-                    }
-                  },
-                })
-              }
-            }
+          that.setData({
+            ownMoney: e.data.result.balance
           })
         } else {
           console.log("验证登陆状态失败");
           wx.reLaunch({
-            url: 'pages/login/login',
+            url: '/pages/login/login',
           })
         }
       },
     })
-    
-   
-    
+  }
+  ,
+  // 领取签到奖励
+  receive: function (e){
+    this.setData({
+      isRecieved: true,
+      word: '已领取',
+      ownMoney: this.data.ownMoney + this.data.reward
+    })
   },
   gotoEarn: function() {
     wx.navigateTo({
