@@ -14,8 +14,8 @@ Page({
     array: ['客厅', '主卧室', '次卧室', '书房', '客厅', '餐厅', '门厅', '卫生间','阳台','其他'],
     files: [],
     showSearch: true,
-    searchWord: ['111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '222', '22323', '34', '6', '7', '8', '9'],
-    initWord: ['111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '111', '111', '111', '112', '222', '22323', '34', '6', '7', '8', '9']
+    searchWord: [],
+    initWord: []
   },
   // 地区选择
   bindRegionChange: function (e) {
@@ -26,7 +26,7 @@ Page({
   },
   // 安装位置选择
   bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value, this.data.array[e.detail.value])
+  
     this.setData({
       index: e.detail.value
     })
@@ -34,8 +34,9 @@ Page({
   // 输入地板名称
   inputTyping: function (e) {
     var input = e.detail.value + '';
-    var searched = this.data.initWord.filter(item => item.indexOf(input) !== -1)
-    console.log(searched);
+    var searched = this.data.initWord.filter(item => {
+      return item.code.toUpperCase().indexOf(input.toUpperCase()) !== -1
+    })
     this.setData({
       productName: e.detail.value,
       searchWord: searched,
@@ -68,20 +69,22 @@ Page({
           files: that.data.files.concat(res.tempFilePaths)
         });
         let file = res.tempFilePaths;
-        console.log(file[0])
         wx.getStorage({
           key: 'sessionKey',
           success: function (response) {
             let key = response.data;
+            console.log(key)
               // 选中图片并上传
             wx.uploadFile({
-              url: 'https://wecareroom.com/api/stpaul/debug/uploadFlooringPicture',
+              url: 'http://192.168.2.247:8080/api/stpaul/debug/uploadFlooringPicture',
               filePath: file[0],
               name: 'image',
               header: {
                 "Content-Type": "multipart/form-data"
               },
               success: function (res) {
+                console.log(1);
+                console.log(res)
                 if (res.statusCode != 200) { 
                   wx.showModal({
                     title: '提示',
@@ -137,15 +140,14 @@ Page({
   },
   // 提交
   submit: function(){
-    var address = this.data.address;
+    let address = this.data.address;
     console.log(address);
-    var flooring = this.data.productName;
-    console.log(flooring);
-    var region = this.data.region[0] + this.data.region[1] + this.data.region[2];
+    let id = this.data.productName.id;
+    let region = this.data.region[0] + this.data.region[1] + this.data.region[2];
     console.log(region);
-    var position = this.data.array[this.data.index];
+    let position = this.data.array[this.data.index];
     console.log(position);
-    if (this.data.files.length > 0 && address && flooring && region && position ) {
+    if (this.data.files.length > 0 && address && id && region && position ) {
       wx.getStorage({
         key: 'sessionKey',
         success: function (res) {
@@ -153,23 +155,35 @@ Page({
           wx.request({
             url: 'https://wecareroom.com/api/stpaul/debug/saveInstallFlooring',
             data: {
+              pid: id,
               key: key,
               uploadImages: upId,
-              InstallFlooringPicture: `{
-              
-              }`
+              InstallFlooringPicture: {
+                address: region,
+                position: position,
+                state: "approving",
+                roomName: address
+              }
             },
+            method: 'POST',
             success: (res) => {
-              console.log(res);
-              wx.showToast({
-                title: '提交成功',
-                icon: 'success'
-              })
-              setTimeout(function () {
-                wx.navigateBack({
-                  delta: 1
+              if (res.data.status.error === 0 ) {
+                wx.showToast({
+                  title: '提交成功',
+                  icon: 'success'
                 })
-              }, 1500)
+                setTimeout(function () {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }, 1500)
+              }else{
+                wx.showToast({
+                  title: '提交失败',
+                  icon: 'loading'
+                })
+              }
+              
             },
             fail: function (e){
               console.log(e);
@@ -197,7 +211,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let that = this;
+    wx.request({
+      url: 'https://wecareroom.com/api/product/listProducts', //仅为示例，并非真实的接口地址
+      data: {
+        limit: 200,
+        page: 1
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          initWord: res.data.result,
+          searchWord: res.data.result
+        })
+      }
+    })
   },
 
   /**

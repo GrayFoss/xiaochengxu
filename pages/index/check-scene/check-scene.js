@@ -28,7 +28,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.getStorage({
+      key: 'sessionKey',
+      success: function (res) {
+        let key = res.data;
+        wx.request({
+          url: 'https://wecareroom.com/api/stpaul/debug/listInstallPicture', //仅为示例，并非真实的接口地址
+          data: {
+            key: key,
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            console.log(res.data)
+          }
+        })
+      }
+    })
   },
   gotoScene: function(){
     wx.navigateTo({
