@@ -1,6 +1,8 @@
 // pages/geren/submitScene/submitScene.js
+var imageId = new Set();
+var id = 0;
+var upId = [];
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -65,7 +67,46 @@ Page({
         that.setData({
           files: that.data.files.concat(res.tempFilePaths)
         });
-        console.log(that.data.files)
+        let file = res.tempFilePaths;
+        console.log(file[0])
+        wx.getStorage({
+          key: 'sessionKey',
+          success: function (response) {
+            let key = response.data;
+              // 选中图片并上传
+            wx.uploadFile({
+              url: 'https://wecareroom.com/api/stpaul/debug/uploadFlooringPicture',
+              filePath: file[0],
+              name: 'image',
+              header: {
+                "Content-Type": "multipart/form-data"
+              },
+              success: function (res) {
+                if (res.statusCode != 200) { 
+                  wx.showModal({
+                    title: '提示',
+                    content: '上传失败',
+                    showCancel: false
+                  })
+                  return;
+                }
+                var data = res.data
+                id++;
+                //do something
+                upId.push(id);
+                imageId.add({ path: `${file[0]}`, id: `${id}`});
+              }
+            })
+          },
+          fail: function (e) {
+            console.log(e);
+            wx.showModal({
+              title: '提示',
+              content: '上传失败',
+              showCancel: false
+            })
+          },
+        })
       }
     })
   },
@@ -78,9 +119,17 @@ Page({
   },
   // 取消上传图片
   delPhoto: function (e) {
-    console.log(e);
     let index = e.target.dataset.index;
     let _picUrls = this.data.files;
+    for(let i of imageId) {
+      if (i.path === _picUrls[index]) {
+        imageId.delete(i)
+      }
+    }
+    upId = [];
+    for(let i of imageId) {
+      upId.push(i.id);
+    }
     _picUrls.splice(index, 1);
     this.setData({
       files: _picUrls
@@ -97,28 +146,38 @@ Page({
     var position = this.data.array[this.data.index];
     console.log(position);
     if (this.data.files.length > 0 && address && flooring && region && position ) {
-      wx.uploadFile({
-        url: 'https://wecareroom.com/api/admin/article/uploadimg',
-        filePath: this.data.files[0],
-        name: 'image',
-        success: (res) => {
-          console.log(res);
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success'
+      wx.getStorage({
+        key: 'sessionKey',
+        success: function (res) {
+          let key = res.data;
+          wx.request({
+            url: 'https://wecareroom.com/api/stpaul/debug/saveInstallFlooring',
+            data: {
+              key: key,
+              uploadImages: upId,
+              InstallFlooringPicture: `{
+              
+              }`
+            },
+            success: (res) => {
+              console.log(res);
+              wx.showToast({
+                title: '提交成功',
+                icon: 'success'
+              })
+              setTimeout(function () {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 1500)
+            },
+            fail: function (e){
+              console.log(e);
+            }
           })
-          setTimeout(function () {
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 1500)
-        },
-        fail: function (e){
-          console.log(e);
         }
       })
-    }
-    else {
+    }  else {
       wx.showModal({
         title: '信息填写不完整',
         content: '请填写完整的反馈信息',

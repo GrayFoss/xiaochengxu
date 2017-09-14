@@ -53,6 +53,7 @@
 .data_have{
   margin-top: 30rpx;
   padding-left: 36rpx;
+  margin-bottom: 130rpx;
 }
 .data_list{
   padding: 24rpx 0;
@@ -139,5 +140,8 @@
   width: 120rpx;
 }
 .pass_bottom view text{
+  color: #e62129;
+}
+.data_list .data_text .denied{
   color: #e62129;
 }

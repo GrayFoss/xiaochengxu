@@ -6,7 +6,7 @@
 </view>
 <view class="sub">
     <view class="sub-type">详细地址:</view>
-    <input  class="sub-content" value="{{address}}" bindinput="inputAddress"  placeholder="例如:湘江中路xx小区B座20楼"/>
+    <input  class="sub-content" value="{{address}}" bindinput="inputAddress"  placeholder="例如:湘江中路xx小区"/>
 </view>
 <view class="sub">
     <view class="sub-type">地板名称:</view>

@@ -36,62 +36,75 @@ Page({
   recharge: function(){
     console.log("paymoney:", this.data.paymoney);
     var that = this;
-    wx.request({
-      url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-      method: 'GET',
-      data: {
-        key: app.globalData.key
-      },
-      success: function (e) {
-        console.log(e);
-        if (e.data.status.error === 0) {
-          console.log("验证登陆状态成功");
-          wx.login({
-            success: function (res) {
-              var myCode = res.code;
-              wx.request({
-                url: 'https://wecareroom.com/api/stpaul/payment/createWxAppPay',
-                method: 'post',
-                data: {
-                  balance: that.data.paymoney,
-                  key: app.globalData.key,
-                  body: that.data.detail,
-                  code: myCode
-                },
-                success: function (e) {
-                  console.log(e);
-                  var message = e.data.result;
-                  wx.requestPayment(
-                    {
-                      'timeStamp': message.timeStamp,
-                      'nonceStr': message.nonceStr,
-                      'package': message.package,
-                      'signType':  'MD5',
-                      'paySign': message.paySign,
-                      'success': function (res) { 
-                        console.log("支付成功")
-                        console.log(res)
-                      },
-                      'fail': function (res) { 
-                        console.log("支付失败")
-                        console.log(res)
-                      },
-                      'complete': function (res) { }
-                    })
-                }, fail: function () {
+    wx.getStorage({
+      key: 'sessionKey',
+      success: function (res) {
+        var key = res.data;
+        wx.request({
+          url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+          method: 'GET',
+          data: {
+            key: key
+          },
+          success: function (e) {
+            console.log(e);
+            if (e.data.status.error === 0) {
+              console.log("验证登陆状态成功");
+              wx.login({
+                success: function (res) {
+                  var myCode = res.code;
+                  wx.request({
+                    url: 'https://wecareroom.com/api/stpaul/payment/createWxAppPay',
+                    method: 'post',
+                    data: {
+                      balance: that.data.paymoney,
+                      key: key,
+                      body: that.data.detail,
+                      code: myCode
+                    },
+                    success: function (e) {
+                      console.log(e);
+                      var message = e.data.result;
+                      wx.requestPayment(
+                        {
+                          'timeStamp': message.timeStamp,
+                          'nonceStr': message.nonceStr,
+                          'package': message.package,
+                          'signType':  'MD5',
+                          'paySign': message.paySign,
+                          'success': function (res) { 
+                            console.log("支付成功")
+                            console.log(res)
+                          },
+                          'fail': function (res) { 
+                            console.log("支付失败")
+                            console.log(res)
+                          },
+                          'complete': function (res) { }
+                        })
+                    }, fail: function () {
 
-                }, complete: function () {
+                    }, complete: function () {
+                    }
+                  })
                 }
               })
+            } else {
+              //提示登陆状态失效，1S后跳转至登陆页
+              wx.showToast({
+                title: '验证登陆状态失败',
+                duration: 1000
+              })
+              setTimeout(
+                function(){
+                  wx.reLaunch({
+                    url: '/pages/login/login',
+                  })
+                },1000)
             }
-          })
-        } else {
-          console.log("验证登陆状态失败");
-          wx.reLaunch({
-            url: 'pages/login/login',
-          })
-        }
-      },
+          },
+        })
+      }
     })
   },
   choosePay: function(e){
