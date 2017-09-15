@@ -66,7 +66,7 @@ Page({
             key: key
           },
           success: function (e) {
-            if (e.data.status.error === 0) {
+            if (e.data && e.data.status && e.data.status.error === 0) {
               wx.showLoading({
                 title: '自动登陆中...',
               })
@@ -77,10 +77,10 @@ Page({
                 wx.hideLoading()
               }, 1500)
             } else {
-              wx.showToast({
-                title: '验证登陆状态失败',
-                duration: 1000
-              })
+              // wx.showToast({
+              //   title: '验证登陆状态失败',
+              //   duration: 1000
+              // })
             }
           },
         })

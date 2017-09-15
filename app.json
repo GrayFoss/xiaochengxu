@@ -1,5 +1,6 @@
  {
   "pages":[
+      "pages/flooring/flooring",
     "pages/articles/articles",
     "pages/login/login",
     
@@ -17,8 +18,8 @@
 
     "pages/shijing/shijing",
     "pages/shijing/details/details",
-    "pages/articles/details/details",
-    "pages/flooring/flooring"
+    "pages/articles/details/details"
+ 
   ],
   "window":{
     "backgroundTextStyle":"light",

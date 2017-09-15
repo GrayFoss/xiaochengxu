@@ -95,6 +95,34 @@ height: 120rpx;
    box-shadow: #555 2px 2px 10px;
 }
 
+.ownTag{
+  position: absolute;
+  right: -10px;
+  width: 66px;
+  height: 32px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  color: white;
+  background: #09BB07;
+  border-radius: 5px;
+  font-weight: 900;
+}
+.notOwnTag{
+  position: absolute;
+  right: -10px;
+  width: 66px;
+  height: 32px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  color: white;
+  background: #1296db;
+  border-radius: 5px;
+  font-weight: 900;
+}
+
+
 .product-name{
   position: absolute;
   bottom: 50rpx;
@@ -105,6 +133,9 @@ height: 120rpx;
   height: 50rpx;
   width: 100%;
   line-height: 50rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 .product-price{
   position: absolute;
@@ -116,6 +147,9 @@ height: 120rpx;
   height: 50rpx;
   width: 100%;
   line-height: 50rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .product-img{
@@ -194,9 +228,14 @@ height: 120rpx;
 
 .cost{
    font-size: 48rpx;
-   color: #e62129;
+   color:  #d81e06;
    line-height: 40rpx;
    padding-right: 10rpx;
+ }
+
+ .now-money {
+   font-size: 48rpx;
+   color: #d81e06
  }
 
  .left{
@@ -207,8 +246,9 @@ height: 120rpx;
  }
 
 .no-use{
-  background: #888;
-  color: white;
+  background: white;
+  color: #09BB07;
+  border: 1px solid #09BB07
 }
 .wrap_dialog button:nth-of-type(1){
   margin-top: 56rpx;
@@ -262,4 +302,14 @@ margin: 20rpx 30rpx;
 color: #555;
 font-size: 28rpx;
 border: 2rpx solid #c1c1c1;
+}
+
+.active_button {
+  background:  #e62129 !important;
+  color: white !important;
+  border: none;
+}
+
+.alreadyHave {
+  color: #09BB07
 }

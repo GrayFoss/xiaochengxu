@@ -7,24 +7,27 @@
 <view class="plate">
 </view>
   <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
-    <view wx:for="{{type}}" bindtap="changeUrl" data-url="{{item.url}}" class="scroll-view-item_H">
-    {{item.name}}
+     <view wx:for="{{type}}" wx:key  bindtap="changeUrl" data-url="{{item.url}}"  class="{{item.isChecked?'scroll-view-item_H active_item':'scroll-view-item_H normal'}}">
+      {{item.name}}
     </view>
     <image class="filter" bindtap="showFilter" src="./img/down.png" ></image>
   </scroll-view>
   <view class="filter_item" hidden="{{isFilter}}">
-  <button size="mini">价格排序</button> 
-  <button size="mini">已拥有</button>
-  <button size="mini">未拥有</button>
+  <!-- <button size="mini">价格排序</button>  -->
+     <button size="mini"  wx:for="{{owned}}" wx:key  bindtap="changeOwned" data-url="{{item.url}}" data-type="{{item.type}}"  class="{{item.isOwned?'normal':'active_button'}}">{{item.type}}</button>  
   </view>
   <scroll-view scroll-y class="scroll-view_V">
-    <view wx:for="{{productList}}" bindtap="showDetail" data-select="{{item}}" class="scroll-view-item">
+    <view wx:for="{{productList}}" wx:key bindtap="showDetail" data-select="{{item}}" class="scroll-view-item">
+      <view class="ownTag" wx:if="{{item.ownTag}}">已享有</view>
+      <view class="notOwnTag" wx:if="{{!item.ownTag}}">未享有</view>
       <image class="product-img" src="http://image.wecareroom.com/upload/product_t/128-24/{{item.code}}.png"></image>
       <view class="product-name">{{item.name}}</view>
       <view class="product-price">{{item.code}}</view>
     </view>
-    <view class="loading" wx:if="{{productList.length === 0 && noSearchWord }}">
-      加载中...
+    <view class="loading" wx:if="{{productList.length === 0 && noSearchWord  && !nothing}}">
+    </view>
+     <view class="loading" wx:if="{{productList.length === 0 && noSearchWord && nothing }}">
+       这里空空如也，去买点什么吧！
     </view>
     <view class="loading" hidden="{{noSearchWord}}">
       暂无查询数据
@@ -36,25 +39,32 @@
           <image src="./img/close.png" bindtap="showDetail" ></image>
         </view> 
         <view class="detail-content">
+
           <image wx:if="{{selectPro.code}}" src="http://image.wecareroom.com/upload/product_t/128-24/{{selectPro.code}}.png"></image>
           <view wx:if="{{selectPro.name}}">名称: {{selectPro.name}}</view>
           <view wx:if="{{selectPro.code}}">编号: {{selectPro.code}}</view>
           <view wx:if="{{selectPro.standard}}">规格: {{selectPro.standard}}</view>
           <view wx:if="{{selectPro.flooring_surface}}">表面工艺: {{selectPro.flooring_surface}}</view>
           <view wx:if="{{selectPro.color}}">颜色: {{selectPro.color}}</view>
-          <button bindtap="payment" type="primary">xxxxxx</button>
         </view>
         <!-- <view  id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view> -->
-       <view class="detail-pay">
+       <view class="detail-pay"  wx:if="{{!selectPro.ownTag}}">
           <view class="left">本次购买消耗</view>
           <view class="right">云豆</view>
           <view class="right cost" wx:if="{{selectPro.label_price}}">{{selectPro.label_price}}</view>
           <view class="right cost" wx:if="{{!selectPro.label_price}}">888</view>
         </view>
-         <view class="detail-money">
+        <view class="detail-money"  wx:if="{{!selectPro.ownTag}}">
           <view class="left">目前云豆数量</view>
-          <view class="right">1000</view>
+          <view class="right now-money">{{money}}</view>
         </view>
-        <button type="primary">立即购买</button>
-        <button class="no-use" bindtap="goRecharge">充值云豆</button>
-   </view>  
+        <button type="primary" disabled="{{ money < selectPro.label_price ? true: false  }}"  wx:if="{{!selectPro.ownTag}}">
+          <text hidden="{{ money < selectPro.label_price ? true: false  }}" >立即购买</text>
+          <text hidden="{{ money < selectPro.label_price ? false:true   }}" >云豆不足</text>
+        </button>
+        <button class="no-use" bindtap="goRecharge"  wx:if="{{!selectPro.ownTag}}">充值云豆</button>
+        <view class="detail-pay"  wx:if="{{selectPro.ownTag}}">
+          <view class="alreadyHave">-您已经拥有这款产品-</view>
+        </view>
+       </view> 
+   

@@ -39,6 +39,9 @@
   font-size:40rpx;
   border-radius:50rpx;
 }
+.now_money text{
+  padding-left:10rpx;
+}
 .animation{
   position: absolute;
   right: 50rpx;

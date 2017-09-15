@@ -10,14 +10,25 @@ Page({
       { name: '复合', url: 'EngineeredFlooring', isChecked: false },
       { name: '实木', url: 'SolidwoodFlooring', isChecked: false }
     ],
+    owned: [
+      { type: '显示全部', url: '', isOwned: false },
+      { type: '未拥有', url: '', isOwned: true },
+      { type: '已拥有', url: '', isOwned: true }      
+    ],
     isFilter: true,
     noSearchWord: true,
     isFilter: true,
     isDetail: false,
+    isAlreadyHave: [],
+    isNotHave: [],
+    AllProduct: [],
+    nothing: false,
     productList: [],
     initProductList: [],
     selectPro: {},
-    loadDataUrl: 'LaminateFlooring'
+    loadOwned: '未拥有',
+    loadDataUrl: 'LaminateFlooring',
+    money: 0,
   },
   showFilter: function () {
     this.setData({
@@ -30,27 +41,6 @@ Page({
       isDetail: !this.data.isDetail,
       selectPro: select
     })
-  },
-  payment: function() {
-    wx.requestPayment(
-    {
-    'timeStamp': '1505210441',
-    'nonceStr': 'jSeQEN7Fv6oMfsi7',
-    'package': 'prepay_id=wx2017091218004176dd2906c30882165983',
-    'signType': 'MD5',
-    'paySign': '5D06E958C51BD78DF667F96143A54511',
-    'success':function(res){
-      console.log("success")
-      console.log(res)
-    },
-    'fail':function(res){
-      console.log("fail")
-      console.log(res)
-    },
-    'complete':function(res){
-      console.log(res)
-    }
-    });
   },
   bindBlur: function (e) {
     if (e.detail.value){
@@ -70,6 +60,39 @@ Page({
     } else {
       this.setData({
         productList: this.data.initProductList
+      })
+    }
+  },
+  changeOwned: function(e){
+    var selectType = e.currentTarget.dataset.type
+    this.data.owned.forEach(pro => {
+      pro.isOwned = true;
+      if (pro.type === selectType) {
+        pro.isOwned = false;
+      }
+    })
+    this.setData({
+      owned: this.data.owned
+    })
+    if (this.data.isAlreadyHave){
+      this.setData({
+        nothing: true        
+      })
+    }
+    if (selectType === '已拥有'){
+      this.setData({
+        productList: this.data.isAlreadyHave,
+        initProductList: this.data.isAlreadyHave
+      })
+    } else if (selectType === '未拥有'){
+      this.setData({
+        productList: this.data.isNotHave,
+        initProductList: this.data.isNotHave
+      })
+    } else if (selectType === '显示全部') {
+      this.setData({
+        productList: this.data.AllProduct,
+        initProductList: this.data.AllProduct
       })
     }
   },
@@ -102,29 +125,82 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    wx.request({
-      url: 'https://wecareroom.com/api/stpaul/product/listProducts',
-      data: {
-        type: 'FLOORING',
-        filter: that.data.loadDataUrl,
-        page: 1,
-        size: 1000
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        that.setData({
-          productList: res.data.result,
-          initProductList: res.data.result
-        })
-        wx.showToast({
-          title: '加载成功',
-          icon: 'success',
-          duration: 1000
-        })
-      }
-    })
+        wx.getStorage({
+          key: 'sessionKey',
+          success: function (res) {
+            var key = res.data;
+            wx.request({
+              url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+              method: 'GET',
+              data: {
+                key: key
+              },
+              success: function (e) {
+                if (e.data && e.data.status && e.data.status.error === 0) {
+                  wx.showLoading({
+                    title: '加载中',
+                  })
+                  var money = e.data.result.balance;
+                  that.setData({
+                    money: money
+                  })
+                  wx.request({
+                    url: 'https://wecareroom.com/api/stpaul/product/listProducts',
+                    data: {
+                      type: 'FLOORING',
+                      filter: that.data.loadDataUrl,
+                      page: 1,
+                      size: 1000
+                    },
+                    header: {
+                      'content-type': 'application/json'
+                    },
+                    success: function (res) {
+                      var allProduct = res.data.result;
+                      wx.request({ 
+                        url: 'https://wecareroom.com/api/stpaul/product/listProductByUser',
+                        data: {
+                          type: 'FLOORING',
+                          filter: that.data.loadDataUrl,
+                          page: 1,
+                          size: 1000,
+                          key: key
+                        },
+                        success: function (res) {
+                          var alreadyHave = res.data.result;
+                          var notHave = allProduct.filter(item => { return !alreadyHave.find(b => b.id === item.id); });
+                          // 标示已拥有
+                          alreadyHave.map(pro => pro.ownTag = true);
+                          allProduct = [...notHave, ...alreadyHave];
+                          // console.log(allProduct);
+                          that.setData({
+                            isAlreadyHave: alreadyHave,
+                            isNotHave: notHave,
+                            AllProduct: allProduct,
+                            productList: allProduct,
+                            initProductList: allProduct
+                          })
+                          wx.hideLoading()
+                        }
+                      })
+                    }
+                  })
+                } else {
+                  wx.showLoading({
+                    title: '您尚未登陆...',
+                  })
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/pages/login/login',
+                    })
+                    wx.hideLoading()
+                  }, 1500)
+                }
+              },
+              fail: function(){}
+            })
+          }
+      })
   },
 
   /**
