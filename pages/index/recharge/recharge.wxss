@@ -29,7 +29,7 @@
   font-weight: 900;
 }
 .recharge-bottom {
-  margin-top: 500rpx;
+  margin-top: 250rpx;
   text-align: center;
 }
 .checkbox {

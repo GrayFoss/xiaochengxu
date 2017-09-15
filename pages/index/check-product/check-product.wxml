@@ -1,5 +1,5 @@
 <view class="sub_header">
-  <view wx:for="{{header}}" data-hi="{{item}}" bindtap="seleSubmit" class="{{item.seleClass}}">
+  <view wx:key wx:for="{{header}}" data-hi="{{item}}" bindtap="seleSubmit" class="{{item.seleClass}}">
     <text>{{item.name}}</text>
   </view>
 </view>
@@ -14,7 +14,7 @@
   <!--已提交  -->
   <block wx:if="{{showProductList.length > 0}}">
     <block wx:if="{{seleClass.name == '已提交'}}">
-      <view class="data_list" wx:for="{{showProductList}}">
+      <view class="data_list" wx:key wx:for="{{showProductList}}">
         <view class="data_text pass_no">
           <view>
             <text>{{item.prodcutCode}}</text>

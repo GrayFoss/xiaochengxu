@@ -1,5 +1,5 @@
 <view class="submit_main" style="height: {{wh}}px">
-  <view class='submit_list' wx:for="{{submit_data}}" data-url="{{item}}" bindtap="gotoScene">
+  <view class='submit_list' wx:key wx:for="{{submit_data}}" data-url="{{item}}" bindtap="gotoScene">
     <view class='hint' style='background-color: {{item.backgroundColor}}'>
     </view>
     <view class='submit_title'>
