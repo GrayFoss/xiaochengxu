@@ -58,9 +58,9 @@
           <view class="left">目前云豆数量</view>
           <view class="right now-money">{{money}}</view>
         </view>
-        <button type="primary" disabled="{{ money < selectPro.label_price ? true: false  }}"  wx:if="{{!selectPro.ownTag}}">
-          <text hidden="{{ money < selectPro.label_price ? true: false  }}" >立即购买</text>
-          <text hidden="{{ money < selectPro.label_price ? false:true   }}" >云豆不足</text>
+        <button type="primary" disabled="{{ money < selectPro.label_price ? true: false  }}||{{!selectPro.label_price}} "  wx:if="{{!selectPro.ownTag}}">
+          <text hidden="{{ money < selectPro.label_price ? true: false }}" >立即购买</text>
+          <text hidden="{{ money < selectPro.label_price ? false:true  }}" >云豆不足</text>
         </button>
         <button class="no-use" bindtap="goRecharge"  wx:if="{{!selectPro.ownTag}}">充值云豆</button>
         <view class="detail-pay"  wx:if="{{selectPro.ownTag}}">

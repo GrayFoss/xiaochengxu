@@ -37,7 +37,7 @@ Page({
     this.setData({
       showProductList: arrayList
     })
-    console.log(this.data.showProductList)
+    // console.log(this.data.showProductList)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -118,7 +118,7 @@ Page({
               productList: res.data.result,
               showProductList: arrayList
             })
-            console.log(that.data.showProductList.length)
+            // console.log(that.data.showProductList.length)
           }
         })
       }

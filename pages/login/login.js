@@ -26,7 +26,7 @@ Page({
             iv: info.iv
           },
           success: function (e) {
-            if (e.data && e.data.status.error === 0) {
+            if (e.data && e.data.status && e.data.status.error === 0) {
               wx.setStorage({
                 key: "sessionKey",
                 data: e.data.result

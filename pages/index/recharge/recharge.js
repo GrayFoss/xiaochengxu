@@ -34,7 +34,6 @@ Page({
     agree: true
   },
   recharge: function(){
-    console.log("paymoney:", this.data.paymoney);
     var that = this;
     wx.getStorage({
       key: 'sessionKey',
@@ -47,9 +46,7 @@ Page({
             key: key
           },
           success: function (e) {
-            console.log(e);
             if (e.data.status.error === 0) {
-              console.log("验证登陆状态成功");
               wx.login({
                 success: function (res) {
                   var myCode = res.code;
@@ -63,7 +60,6 @@ Page({
                       code: myCode
                     },
                     success: function (e) {
-                      console.log(e);
                       var message = e.data.result;
                       wx.requestPayment(
                         {
@@ -73,11 +69,9 @@ Page({
                           'signType':  'MD5',
                           'paySign': message.paySign,
                           'success': function (res) { 
-                            console.log("支付成功")
                             console.log(res)
                           },
                           'fail': function (res) { 
-                            console.log("支付失败")
                             console.log(res)
                           },
                           'complete': function (res) { }
@@ -124,7 +118,6 @@ Page({
     })
   },
   checkboxChange: function (e) {
-    console.log('checkbox发生change事件，携带value值为：', e.detail.value)
     this.setData({
         agree: !this.data.agree
     })

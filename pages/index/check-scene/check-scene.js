@@ -60,7 +60,7 @@ Page({
             let list = res.data.result.filter(response => {
               return response.state === "approving";
             })
-            console.log(res.data.result)
+            // console.log(res.data.result)
             that.setData({
               listAll: res.data.result,
               listShow: list

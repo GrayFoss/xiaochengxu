@@ -15,7 +15,7 @@ Page({
     })
   },
   getoDetails: function(e) {
-    console.log(e.currentTarget.dataset.id)
+    // console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: `/pages/articles/details/details?id=${e.currentTarget.dataset.id}`
     })
@@ -44,7 +44,7 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         res.data.result
           .forEach(res => {
             res.time = res.createTime.toString().slice(0, 10).replace('-', '年').replace('-', '月') + '日'
