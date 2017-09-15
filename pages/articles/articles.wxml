@@ -6,7 +6,7 @@
 </view>
 <view class="plate">
 </view>
-<view class="article" wx:for="{{seleArticles}}">
+<view class="article" wx:key wx:for="{{seleArticles}}">
   <view class="pal_for"></view>
   <image class="article_img" src="{{item.titleImg}}" data-id="{{item.id}}" bindtap="getoDetails"/>
   <view class="article_hidden">

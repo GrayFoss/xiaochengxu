@@ -3,7 +3,8 @@ App({
   globalData: {
     userInfo: null,
     code: '',
-    key: ''
+    key: '',
+    money: 0
   },
   onLaunch: function () {
     var that = this

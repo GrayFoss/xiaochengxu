@@ -52,14 +52,20 @@ Page({
             key: key
           },
           success: function (e) {
-            if (e.data.status.error === 0) {
+            if ( e.data && e.data.status &&e.data.status.error === 0) {
               that.setData({
                 user: e.data.result
               })
             } else {
-              wx.reLaunch({
-                url: '/pages/login/login',
+              wx.showLoading({
+                title: '您尚未登陆...',
               })
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/pages/login/login',
+                })
+                wx.hideLoading()
+              }, 1500)
             }
           },
         })
