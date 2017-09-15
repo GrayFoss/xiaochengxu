@@ -76,7 +76,7 @@ Page({
             console.log(key)
               // 选中图片并上传
             wx.uploadFile({
-              url: 'http://192.168.2.247:8080/api/stpaul/debug/uploadFlooringPicture',
+              url: 'https://wecareroom.com/api/stpaul/debug/uploadFlooringPicture',
               filePath: file[0],
               name: 'image',
               header: {

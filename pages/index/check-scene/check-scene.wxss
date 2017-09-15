@@ -53,6 +53,7 @@
 .data_have{
   margin-top: 30rpx;
   padding-left: 36rpx;
+  margin-bottom: 130rpx;
 }
 .data_list{
   padding: 24rpx 0;
