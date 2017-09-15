@@ -30,6 +30,34 @@
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
 }
+.now_money{
+  position:absolute;
+  right:30rpx;
+  top:30rpx;
+  background:white;
+  padding:0 15rpx;
+  font-size:40rpx;
+  border-radius:50rpx;
+}
+.animation{
+  position: absolute;
+  right: 50rpx;
+  top: 160rpx;
+  font-size: 30rpx;
+  color: red;
+  opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
 .yundou{
   padding-left: 36rpx;
 }
@@ -147,15 +175,7 @@
   line-height: 60rpx;
 }
 
-.now_money{
-  position:absolute;
-  right:30rpx;
-  top:30rpx;
-  background:white;
-  padding:0 15rpx;
-  font-size:40rpx;
-  border-radius:50rpx;
-}
+
 
 .now_dou{
   width: 35rpx;

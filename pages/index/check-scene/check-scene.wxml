@@ -5,51 +5,52 @@
 </view>
 
  <!- 没有提交实景图 -->
-<!-- <view class='no_data'>
+<view class='no_data' wx:if="{{listShow.length === 0}}">
   <image mode="widthFix" src="./../img/submit_no.png"></image>
-</view>  -->
+</view>  
 
 
 <view class="data_have">
   <!--已提交  -->
-  <block wx:if="{{seleClass.name == '已提交'}}">
-    <view class="data_list">
+  <block wx:if="{{seleClass.name == '已提交' && listShow.length > 0}}">
+    <view class="data_list" wx:for="{{listShow}}">
       <view class='data_img'>
         <image src='./../img/1.png'></image>
       </view>
       <view class='data_text pass_no'>
         <view>
-          <text>天然油棕橡</text>
+          <text>{{item.product.code}}</text>
         </view>
         <view>
-          <text>dkasljhdjjaskfhdjs,f</text>
+          <text>{{item.roomName}}</text>
         </view>
         <view>
-          <text>2017-8-30</text>
-          <text>审核中</text>
+          <text>{{item.createTime}}</text>
+          <text wx:if="{{item.state === 'approving'}}">审核中</text>
+          <text wx:if="{{item.state === 'denied'}}" class='denied'>审核失败</text>
         </view>
       </view>
     </view> 
   </block>
 
   <!--审核通过  -->
-  <block wx:if="{{seleClass.name == '审核通过'}}">
+  <block wx:if="{{seleClass.name == '审核通过' && listShow.length > 0}}">
     <view class="data_list pass">
       <view class='data_img'>
         <image src='./../img/1.png'></image>
       </view>
       <view class='data_text'>
         <view>
-          <text>天然油棕橡</text>
+          <text>{{item.product.code}}</text>
         </view>
         <view>
-          <text>2017-8-30</text>
+          <text>{{item.createTime}}</text>
         </view>
         <view class='pass_bottom'>
           <text>已通过</text>
           <view>
             <image src="./../img/dou.png"></image>
-            <text>+30</text>
+            <text>+1</text>
           </view>
         </view>
       </view>

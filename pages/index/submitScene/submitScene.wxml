@@ -5,17 +5,17 @@
   </picker>
 </view>
 <view class="sub">
-    <view class="sub-type">详细地址:</view>
-    <input  class="sub-content" value="{{address}}" bindinput="inputAddress"  placeholder="例如:湘江中路xx小区B座20楼"/>
+    <view class="sub-type">小区名字:</view>
+    <input  class="sub-content" value="{{address}}" bindinput="inputAddress"  placeholder="例如:湘江中路xx小区"/>
 </view>
 <view class="sub">
     <view class="sub-type">地板名称:</view>
-    <input class="sub-content" value="{{productName}}"  bindinput="inputTyping"/>
+    <input class="sub-content" value="{{productName.code}}"  bindinput="inputTyping"/>
 </view>
-<view class="weui-cells searchbar-result" wx:if="{{productName.length > 0 && searchWord.length  >0 && showSearch}}">
+<view class="weui-cells searchbar-result" wx:if="{{productName && searchWord.length  >0 && showSearch}}">
         <view> 匹配地板名称 </view>
         <view wx:for="{{searchWord}}" class="weui-cell__bd">
-            <view bindtap="selectItem" data-chooseValue="{{item}}">{{item}}</view>
+            <view bindtap="selectItem" data-chooseValue="{{item}}">{{item.code}}</view>
         </view>
 </view>
 <view class="sub">

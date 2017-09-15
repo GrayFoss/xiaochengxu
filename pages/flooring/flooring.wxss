@@ -43,7 +43,8 @@ height: 120rpx;
 }
 
 .scroll-view-item_H{
-    width: 20%;
+  /* 修改类型宽度  */
+    width: 13%;
     padding:0  5% 0 8%; 
     text-align: left;
     display: inline-block;
@@ -235,4 +236,30 @@ height: 120rpx;
 
 .normal{
   color: #555;
+}
+
+.filter {
+width:50rpx;
+height:25rpx;
+position:fixed;
+right:0;
+top:130rpx;
+background:white;
+padding:20rpx 40rpx ;
+}
+
+.filter_item{
+text-align: center;
+border-top: 2rpx solid #e4e4e4;
+height: 100rpx;
+position: absolute;
+z-index: 999;
+background: white;
+width: 100%;
+}
+.filter_item > button{
+margin: 20rpx 30rpx;
+color: #555;
+font-size: 28rpx;
+border: 2rpx solid #c1c1c1;
 }

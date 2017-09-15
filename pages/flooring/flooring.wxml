@@ -7,10 +7,16 @@
 <view class="plate">
 </view>
   <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
-    <view wx:for="{{type}}"  bindtap="changeUrl" data-url="{{item.url}}"  class="{{item.isChecked?'scroll-view-item_H active_item':'scroll-view-item_H normal'}}">
-      {{item.name}}
+    <view wx:for="{{type}}" bindtap="changeUrl" data-url="{{item.url}}" class="scroll-view-item_H">
+    {{item.name}}
     </view>
+    <image class="filter" bindtap="showFilter" src="./img/down.png" ></image>
   </scroll-view>
+  <view class="filter_item" hidden="{{isFilter}}">
+  <button size="mini">价格排序</button> 
+  <button size="mini">已拥有</button>
+  <button size="mini">未拥有</button>
+  </view>
   <scroll-view scroll-y class="scroll-view_V">
     <view wx:for="{{productList}}" bindtap="showDetail" data-select="{{item}}" class="scroll-view-item">
       <image class="product-img" src="http://image.wecareroom.com/upload/product_t/128-24/{{item.code}}.png"></image>
@@ -38,7 +44,7 @@
           <view wx:if="{{selectPro.color}}">颜色: {{selectPro.color}}</view>
           <button bindtap="payment" type="primary">xxxxxx</button>
         </view>
-        <view  id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view>
+        <!-- <view  id="desc" wx:if="{{selectPro.productSeries}}">描述: {{selectPro.productSeries.descriptions}}</view> -->
        <view class="detail-pay">
           <view class="left">本次购买消耗</view>
           <view class="right">云豆</view>

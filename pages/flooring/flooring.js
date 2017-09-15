@@ -10,6 +10,7 @@ Page({
       { name: '复合', url: 'EngineeredFlooring', isChecked: false },
       { name: '实木', url: 'SolidwoodFlooring', isChecked: false }
     ],
+    isFilter: true,
     noSearchWord: true,
     isFilter: true,
     isDetail: false,
@@ -17,6 +18,11 @@ Page({
     initProductList: [],
     selectPro: {},
     loadDataUrl: 'LaminateFlooring'
+  },
+  showFilter: function () {
+    this.setData({
+      isFilter: !this.data.isFilter
+    })
   },
   showDetail: function(e) {
     var select = e.currentTarget.dataset.select

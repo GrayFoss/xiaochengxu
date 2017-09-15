@@ -27,7 +27,6 @@ Page({
     })
   },
   gotoScene: function(e){
-    console.log(e);
     wx.navigateTo({
       url: `${e.currentTarget.dataset.url.nav}`,
     })

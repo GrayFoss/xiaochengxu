@@ -1,8 +1,11 @@
 //index.js
 //获取应用实例
 const app = getApp()
+
 Page({
   data: {
+    animationDay: {},
+    animationData: {},
     ownMoney: '加载ing',
     reward: 1,
     isRecieved: false,
@@ -15,7 +18,7 @@ Page({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -41,38 +44,105 @@ Page({
     wx.getStorage({
       key: 'sessionKey',
       success: function (res) {
-        var key = res.data;
-          wx.request({
-            url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-            method: 'GET',
-            data: {
-              key: key
-            },
-            success: function (e) {
-              if (e.data.status && e.data.status.error === 0) {
-                that.setData({
-                  ownMoney: e.data.result.balance
-                })
-              } else {
-                wx.reLaunch({
-                  url: '/pages/login/login',
-                })
-              }
-            },
-          })
+        let key = res.data;
+        wx.request({
+          url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+          method: 'GET',
+          data: {
+            key: key
+          },
+          success: function (e) {
+            if (e.data.status.error === 0) {
+              that.setData({
+                user: e.data.result
+              })
+            } else {
+              wx.reLaunch({
+                url: '/pages/login/login',
+              })
+            }
+          },
+        })
       }
     })
-  }
-  ,
+  },
   // 领取签到奖励
-  receive: function (e){
-    this.setData({
-      isRecieved: true,
-      word: '已领取',
-      ownMoney: this.data.ownMoney + this.data.reward
+  key: function (e) {
+    let that = this;
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: "ease",
+    })
+    this.animation = animation
+    animation.opacity(1).translateY(-40).step()
+    animation.opacity(0).step()
+    wx.getStorage({
+      key: 'sessionKey',
+      success: function (res) {
+        let key = res.data;
+        wx.request({
+          url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+          method: 'GET',
+          data: {
+            key: key
+          },
+          success: function (e) {
+            if (e.data.status.error === 0) { 
+              wx.getStorage({
+                key: 'sessionKey',
+                success: function (res) {
+                  let key = res.data;
+                  wx.request({
+                    url: 'https://wecareroom.com/api/stpaul/user/checkIn',
+                    data: {
+                      key: key
+                    },
+                    method: 'GET',
+                    success: (res) => {
+                      if (res.data.status.error === 0) {
+                        wx.request({
+                          url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+                          method: 'GET',
+                          data: {
+                            key: key
+                          },
+                          success: function (e) {
+                            if (e.data.status.error === 0) {
+                              that.setData({
+                                user: e.data.result,
+                                animationDay: animation.export()
+                              })
+                            } else {
+                              wx.reLaunch({
+                                url: 'pages/login/login',
+                              })
+                            }
+                          },
+                        })
+                      }else{
+                        wx.showToast({
+                          icon: "loading",
+                          title: "签到失败"
+                        })
+                      }
+                    }
+                  })
+                }
+              })
+            } else {
+              wx.reLaunch({
+                url: 'pages/login/login',
+              })
+            }
+          },
+        })
+      }
     })
   },
-  gotoEarn: function() {
+  onShow: function () {
+   
+  },
+  gotoEarn: function () {
     wx.navigateTo({
       url: './earn/earn',
     })
@@ -82,7 +152,7 @@ Page({
       url: './recharge/recharge',
     })
   },
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
