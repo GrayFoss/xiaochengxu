@@ -1,6 +1,6 @@
  {
   "pages":[
-        "pages/index/check-product-color/check-product-color",
+        
     "pages/articles/articles",
     "pages/login/login",
     
@@ -10,7 +10,7 @@
 
     "pages/index/earn/earn",
     "pages/index/check-scene/check-scene",
-
+    "pages/index/check-product-color/check-product-color",
     "pages/index/protocol/protocol",
     "pages/index/submitProduct/submitProduct",
     "pages/index/submitScene/submitScene",

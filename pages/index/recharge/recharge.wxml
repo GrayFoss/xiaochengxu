@@ -1,8 +1,7 @@
 <view class="recharge">
-  <view class="recharge-title">充值套餐:</view>
+  <view class="recharge-title">充值云豆:</view>
   <view class="recharge-btn">
-    <!-- <button size="mini" wx:key wx:for="{{cost}}" data-money="{{item.price}}" data-detail="{{item.detail}}" bindtap="choosePay"class="{{item.isChecked?'active':''}}">{{item.price/100}}云豆</button> -->
-    <button type='primary' plain="true" >基础套餐</button> 
+     <button size="mini" wx:key wx:for="{{cost}}" data-money="{{item.price}}" data-detail="{{item.detail}}" bindtap="choosePay"class="{{item.isChecked?'active':''}}">{{item.show}}</button> 
   </view>
  <view class="recharge-title">应付金额:</view>
   <view class="recharge-money">

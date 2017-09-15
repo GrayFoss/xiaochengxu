@@ -5,29 +5,39 @@ Page({
    * 页面的初始数据
    */
   data: {
-    paymoney: 1,
+    paymoney: 60000,
     detail: '标准套餐',
-    // cost: [
-    //    { price:3000,
-    //      isChecked: true
-    //    },
-    //    {
-    //      price: 10000,
-    //      isChecked: false
-    //    },
-    //    {
-    //      price: 30000,
-    //      isChecked: false
-    //    },
-    //    {
-    //      price: 50000,
-    //      isChecked: false
-    //    }],
     cost: [
-      {
-        price: 1,
-        isChecked: true,
-      }],
+       { price:100,
+         detail: '充值云豆',
+         show: '30云豆',
+         isChecked: false
+       },
+       {
+         price: 10000,
+         detail: '充值云豆',
+         show: '100云豆',
+         isChecked: false
+       },
+       {
+         price: 30000,
+         detail: '充值云豆',
+         show: '300云豆',
+         isChecked: false
+       },
+       {
+         price: 50000,
+         detail: '充值云豆',
+         show: '500云豆',
+         isChecked: false
+       }
+      ,
+       {
+         price: 60000,
+         detail: '标准套餐',
+         show: '标准套餐',
+         isChecked: true
+       }],
     items: [
       { name: 'agree', value: '同意', checked: 'true' }
     ],
@@ -102,9 +112,9 @@ Page({
     })
   },
   choosePay: function(e){
-    var money = e.currentTarget.dataset.money
-    var detail = e.currentTarget.dataset.detail
-    var that = this
+    let money = e.currentTarget.dataset.money
+    let detail = e.currentTarget.dataset.detail
+    let that = this
     this.data.cost.forEach( cost => {
       cost.isChecked = false
       if(cost.price === money){

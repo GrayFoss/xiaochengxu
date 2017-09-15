@@ -37,15 +37,77 @@ Page({
   },
   showDetail: function(e) {
     var select = e.currentTarget.dataset.select
+
+    if (select && select.label_price){
+      // select.label_price = Math.ceil( 100/Math.PI*Math.atan(select.label_price - 100)+50 );
+     select.label_price = Math.ceil( select.label_price / 10 );
+    }
+    // select.label_price = select.label_price/10;
     this.setData({
       isDetail: !this.data.isDetail,
       selectPro: select
     })
   },
+  buyFlooring: function (){
+    var that = this;
+    if (this.data.selectPro && this.data.selectPro.label_price ){
+      wx.getStorage({
+        key: 'sessionKey',
+        success: function (res) {
+          var key = res.data;
+          wx.request({
+            url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+            method: 'GET',
+            data: {
+              key: key
+            },
+            success: function (e) {
+              if (e.data.status.error === 0) {
+                  wx.request({
+                    url: 'https://wecareroom.com/api/stpaul/payment/purchaseProduct',
+                    method: 'POST',
+                    data: {
+                      key: key,
+                      price: that.data.selectPro.label_price,
+                      pid: that.data.selectPro.id
+                    },
+                    success: function(){
+                      that.setData({
+                        isDetail: !that.data.isDetail,
+                      })
+                      wx.showToast({
+                        title: '购买成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                      setTimeout(function(){
+                       that.getMessage(that)
+                      },1000)
+                    }
+                  })
+                } else {
+                //提示登陆状态失效，1S后跳转至登陆页
+                wx.showToast({
+                  title: '验证登陆状态失败',
+                  duration: 1000
+                })
+                setTimeout(
+                  function () {
+                    wx.reLaunch({
+                      url: '/pages/login/login',
+                    })
+                  }, 1000)
+              }
+            },
+          })
+        }
+      })
+    }
+  },
   bindBlur: function (e) {
     if (e.detail.value){
       const xx = this.data.initProductList.filter(pro => {
-        return pro.name.toString().indexOf(e.detail.value) > -1;
+        return pro.code.toString().toUpperCase().indexOf(e.detail.value.toUpperCase()) > -1;
       })
       if(xx.length){
         this.setData({
@@ -125,84 +187,86 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-        wx.getStorage({
-          key: 'sessionKey',
-          success: function (res) {
-            var key = res.data;
-            wx.request({
-              url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
-              method: 'GET',
-              data: {
-                key: key
-              },
-              success: function (e) {
-                if (e.data && e.data.status && e.data.status.error === 0) {
-                  wx.showLoading({
-                    title: '加载中',
-                  })
-                  var money = e.data.result.balance;
-                  that.setData({
-                    money: money
-                  })
+    this.getMessage(that);
+  },
+  getMessage: function (that){
+    var that = that;
+    wx.getStorage({
+      key: 'sessionKey',
+      success: function (res) {
+        var key = res.data;
+        wx.request({
+          url: 'https://wecareroom.com/api/stpaul/user/getWxAppLoginStatus',
+          method: 'GET',
+          data: {
+            key: key
+          },
+          success: function (e) {
+            if (e.data && e.data.status && e.data.status.error === 0) {
+              wx.showLoading({
+                title: '加载中',
+              })
+              var money = e.data.result.balance;
+              that.setData({
+                money: money
+              })
+              wx.request({
+                url: 'https://wecareroom.com/api/stpaul/product/listProducts',
+                data: {
+                  type: 'FLOORING',
+                  filter: that.data.loadDataUrl,
+                  page: 1,
+                  size: 1000
+                },
+                header: {
+                  'content-type': 'application/json'
+                },
+                success: function (res) {
+                  var allProduct = res.data.result;
                   wx.request({
-                    url: 'https://wecareroom.com/api/stpaul/product/listProducts',
+                    url: 'https://wecareroom.com/api/stpaul/product/listProductByUser',
                     data: {
                       type: 'FLOORING',
                       filter: that.data.loadDataUrl,
                       page: 1,
-                      size: 1000
-                    },
-                    header: {
-                      'content-type': 'application/json'
+                      size: 1000,
+                      key: key
                     },
                     success: function (res) {
-                      var allProduct = res.data.result;
-                      wx.request({ 
-                        url: 'https://wecareroom.com/api/stpaul/product/listProductByUser',
-                        data: {
-                          type: 'FLOORING',
-                          filter: that.data.loadDataUrl,
-                          page: 1,
-                          size: 1000,
-                          key: key
-                        },
-                        success: function (res) {
-                          var alreadyHave = res.data.result;
-                          var notHave = allProduct.filter(item => { return !alreadyHave.find(b => b.id === item.id); });
-                          // 标示已拥有
-                          alreadyHave.map(pro => pro.ownTag = true);
-                          allProduct = [...notHave, ...alreadyHave];
-                          // console.log(allProduct);
-                          that.setData({
-                            isAlreadyHave: alreadyHave,
-                            isNotHave: notHave,
-                            AllProduct: allProduct,
-                            productList: allProduct,
-                            initProductList: allProduct
-                          })
-                          wx.hideLoading()
-                        }
+                      var alreadyHave = res.data.result;
+                      var notHave = allProduct.filter(item => { return !alreadyHave.find(b => b.id === item.id); });
+                      // 标示已拥有
+                      alreadyHave.map(pro => pro.ownTag = true);
+                      allProduct = [...notHave, ...alreadyHave];
+                      that.setData({
+                        isAlreadyHave: alreadyHave,
+                        isNotHave: notHave,
+                        AllProduct: allProduct,
+                        productList: allProduct,
+                        initProductList: allProduct
                       })
+                      wx.hideLoading()
                     }
                   })
-                } else {
-                  wx.showLoading({
-                    title: '您尚未登陆...',
-                  })
-                  setTimeout(function () {
-                    wx.reLaunch({
-                      url: '/pages/login/login',
-                    })
-                    wx.hideLoading()
-                  }, 1500)
                 }
-              },
-              fail: function(){}
-            })
-          }
-      })
+              })
+            } else {
+              wx.showLoading({
+                title: '您尚未登陆...',
+              })
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/pages/login/login',
+                })
+                wx.hideLoading()
+              }, 1500)
+            }
+          },
+          fail: function () { }
+        })
+      }
+    })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

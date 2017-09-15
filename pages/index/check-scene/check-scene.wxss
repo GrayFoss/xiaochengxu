@@ -5,7 +5,7 @@
   display: flex;
   display: -webkit-flex;
   width: 320rpx;
-  height: 60rpx;
+  height: 68rpx;
   margin: 30rpx auto 0;
   border: 1px solid #c1c1c1;
 }
@@ -17,7 +17,7 @@
 }
 .sub_header view{
   width: 160rpx;
-  height: 100%;
+  height: 64rpx;
   text-align: center;
 }
 .sub_header text{

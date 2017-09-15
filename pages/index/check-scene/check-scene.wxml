@@ -1,5 +1,5 @@
 <view class="sub_header">
-  <view wx:for="{{header}}" data-hi="{{item}}" bindtap="seleSubmit" class='{{item.seleClass}}'>
+  <view wx:key wx:for="{{header}}" data-hi="{{item}}" bindtap="seleSubmit" class='{{item.seleClass}}'>
     <text>{{item.name}}</text>
   </view>
 </view>
@@ -13,7 +13,7 @@
 <view class="data_have">
   <!--已提交  -->
   <block wx:if="{{seleClass.name == '已提交' && listShow.length > 0}}">
-    <view class="data_list" wx:for="{{listShow}}">
+    <view class="data_list" wx:key wx:for="{{listShow}}">
       <view class='data_img'>
         <image src='./../img/1.png'></image>
       </view>
@@ -35,7 +35,7 @@
 
   <!--审核通过  -->
   <block wx:if="{{seleClass.name == '审核通过' && listShow.length > 0}}">
-    <view class="data_list pass">
+    <view class="data_list pass" wx:key wx:for="{{listShow}}">
       <view class='data_img'>
         <image src='./../img/1.png'></image>
       </view>
