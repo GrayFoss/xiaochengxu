@@ -68,7 +68,29 @@ Page({
               }, 1500)
             }
           },
+            fail: function () {
+              wx.showLoading({
+                title: '您尚未登陆...',
+              })
+              setTimeout(function () {
+                wx.reLaunch({
+                  url: '/pages/login/login',
+                })
+                wx.hideLoading()
+              }, 1500)
+            }
         })
+      },
+      fail: function () {
+        wx.showLoading({
+          title: '您尚未登陆...',
+        })
+        setTimeout(function () {
+          wx.reLaunch({
+            url: '/pages/login/login',
+          })
+          wx.hideLoading()
+        }, 1500)
       }
     })
   },
